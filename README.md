@@ -46,7 +46,7 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://musicalrankings.click).
 
 ## 🚀 HTML deliverable
 
@@ -54,14 +54,16 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] **HTML pages** - I added four HTML pages that provide the structure for the functionality of the web app.
                     This includes rank.html and friends.html, which are the core of the app.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **Proper HTML element usage** - I added buttons specific to my application's functionality, such as friend request and refresh musical listings buttons
+- [x] **Links** - I made sure that there were links between the different parts of the web app and that there was a link to my github source code.
+- [x] **Text** - I added text that welcomed the user and explained the funcitonality of the different web pages.
+- [x] **3rd party API placeholder** - The musical listings page shows where the 3rd party information from the West End API will be displayed.
+- [x] **Images** - I added mutiple images using the <img> tag to enhance the user experience.
+- [x] **Login placeholder** - I added username and password forms that will allow the user to login.
+- [x] **DB data placeholder** - The friends page includes a database display of the user's friends.
+- [x] **WebSocket placeholder** - The ranking page includes a section where notifications will appear as friends interact with the user or as they rate musicals so that the user can stay updated.
+
+Notes: use the height or width parameter in the <img> tag in order to specify the size of the image.
 
 ## 🚀 CSS deliverable
 
