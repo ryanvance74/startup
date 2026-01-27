@@ -1,4 +1,4 @@
-# MusicalRatings
+# MusicalRankings
 
 [My Notes](notes.md)
 
