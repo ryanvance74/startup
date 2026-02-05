@@ -19,7 +19,7 @@
   </head>
   <body class="custom-bg text-dark justify">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">MusicalRankings<sup>&reg;</sup></a>
+      <a class="navbar-brand" href="index.html">MusicalRankings<sup>&reg;</sup></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
       </button>
@@ -33,39 +33,46 @@
         </menu>
        </div>
     </nav>
-    <main class="container-fluid d-flex flex-column justify-content-between">
-        <h4 class="text-center"> Latest on musicals at the West End </h4>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Showings Today</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td> Les Mis</td>
-            <td>1</td>
-            <td>$120</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Hamilton</td>
-            <td>3</td>
-            <td>$400</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Wicked</td>
-            <td>2</td>
-            <td>$210</td>
-          </tr>
-        </tbody>
-      </table>
-      <button> Refresh Listings </button>
+    <main class="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="text-center"> Latest on musicals at the West End </h4>
+                <table class="table table-success table-striped-columns">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Showings Today</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td> Les Mis</td>
+                        <td>1</td>
+                        <td>$120</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Hamilton</td>
+                        <td>3</td>
+                        <td>$400</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Wicked</td>
+                        <td>2</td>
+                        <td>$210</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                        <button class="btn btn-primary">Refresh Listings</button>
+                    </div>
+            </div>
+        </div>
+        
     </main>
 
     <footer class="bg-dark text-light footer">
