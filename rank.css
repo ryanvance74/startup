@@ -14,7 +14,7 @@ h4 {
 }
 
 .notification {
-    color: #ff0000;
+    text-shadow: 0px 0px 10px #FF0000;
 }
 
 body {
@@ -27,5 +27,6 @@ html {
 }
 
 #musical-name {
-    color:#ff0000;
+    font-weight: bold !important;
+    color: #FF0000;
 }
