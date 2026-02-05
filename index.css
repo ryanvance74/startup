@@ -22,7 +22,7 @@ h1 {
 menu {
   flex: 1;
   display: flex;
-  flex-direction: row !important;
+  flex-direction: column;
   list-style: none;
 }
 
