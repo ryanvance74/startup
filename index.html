@@ -37,26 +37,27 @@
        </div>
     </nav>
 
-    <main class="container flex-grow-1 d-flex flex-column align-items-center">
+    <main class="container-fluid flex-grow-1 d-flex flex-column align-items-center">
       <h1>Welcome to MusicalRankings, the site where you can rank musicals!</h1>
       <form method="get" action="rank.html">
         <div class="input-group mb-3">
           <span class="input-group-text">@</span>
           <input class="form-control" type="text" placeholder="your@email.com" />
         </div>
-        <div>
-          <span>🔒</span>
-          <input type="password" placeholder="password" />
+        <div class="input-group mb-3">
+          <span class="input-group-text">🔒</span>
+          <input class="form-control" type="password" placeholder="password" />
         </div>
-        <button type="submit">Login</button>
-        <button type="submit">Create</button>
+        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-secondary" type="submit">Create</button>
       </form>
     </main>
-    <footer>
-      <hr />
-      <span>Ryan Vance</span>
-      <br />
-      <a href="https://github.com/ryanvance74/startup">GitHub</a>
+    <footer class="bg-dark text-light">
+        <div class="container-fluid">
+            <span>Ryan Vance</span>
+            <a href="https://github.com/ryanvance74/startup">GitHub</a>
+        </div>
+      
     </footer>
     
   </body>

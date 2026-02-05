@@ -1,3 +1,12 @@
 .custom-bg {
     background-color: #8dc2d3
 }
+
+body, html {
+  height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
