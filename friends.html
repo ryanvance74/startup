@@ -17,7 +17,7 @@
       crossorigin="anonymous">
     </script>
   </head>
-  <body class="custom-bg text-dark">
+  <body class="custom-bg text-dark justify">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">MusicalRankings<sup>&reg;</sup></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,54 +30,64 @@
           <li class="nav-item"><a class="nav-link" href="friends.html">Friends</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="showings.html">Showings</a></li>
-        </menu>
        </div>
     </nav>
 
-    <main>
-        <h4>Send a Friend Request:</h4>
-        <div class="friend-request">
-          <input type="text" placeholder="friend@email.com" />
+    <main class="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Send a Friend Request:</h4>
+                    <div class="input-group mb-6">
+                    <span class="input-group-text">@</span>
+                    <input class="form-control" type="text" placeholder="your@email.com" />
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Send Friend Request</button>
+                    </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-center" id="table-title"> Friends </h4>
+                <table class="table table-success table-striped-columns">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Musicals Rated</th>
+                        <th>Friends Since</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td> Tim</td>
+                        <td>10</td>
+                        <td>May 20, 2021</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Ada</td>
+                        <td>29</td>
+                        <td>June 2, 2021</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Gunter Spears</td>
+                        <td>7</td>
+                        <td>July 3, 2020</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+                
         </div>
-        <button> Send Friend Request</button>
-      <table class="friend-table">
-        <caption> Friends </caption>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Musicals Rated</th>
-            <th>Friends Since</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td> Tim</td>
-            <td>10</td>
-            <td>May 20, 2021</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Ada</td>
-            <td>29</td>
-            <td>June 2, 2021</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Gunter Spears</td>
-            <td>7</td>
-            <td>July 3, 2020</td>
-          </tr>
-        </tbody>
-      </table>
+        
     </main>
 
-    <footer>
-      <hr />
-      <span class="text-reset">Ryan Vance</span>
-      <br />
-      <a href="https://github.com/ryanvance74/startup">GitHub</a>
+    <footer class="bg-dark text-light footer">
+        <div class="container-fluid d-flex justify-content-between">
+            <span>Ryan Vance</span>
+            <a href="https://github.com/ryanvance74/startup">GitHub</a>
+        </div>
     </footer>
   </body>
 </html>
