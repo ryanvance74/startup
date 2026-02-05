@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About</title>
+    <link rel="stylesheet" href="about.css">
      <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -16,7 +17,7 @@
       crossorigin="anonymous">
     </script>
   </head>
-  <body>
+  <body class="custom-bg text-dark justify">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">MusicalRankings<sup>&reg;</sup></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,33 +30,37 @@
           <li class="nav-item"><a class="nav-link" href="friends.html">Friends</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="showings.html">Showings</a></li>
-        </menu>
        </div>
     </nav>
 
       <hr />
     </header>
 
-    <main>
-        <caption>Welcome to the theatre!</caption>
-      <div id="picture" class="picture-box"><img width="400px" src="theatre.png" /></div>
+    <main class="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
+        <div class="row"> 
+            <div class="col-md-6">
+                <span>Welcome to the theatre!</span>
+                    <div id="picture" class="picture-box"><img width="400px" src="theatre.png" /></div>
 
-      <p>
-        MusicalRankings is a site where you can rank and rate your favorite musicals! Rank your top five musicals, 
-        add your friends, and compare your rankings to your friends'.
-      </p>
+                    <p>
+                        MusicalRankings is a site where you can rank and rate your favorite musicals! Rank your top five musicals, 
+                        add your friends, and compare your rankings to your friends'.
+                    </p>
 
-      <p>
-        Note: movie musicals and broadway musicals are not distinguished here. Rate them together!
-      </p>
-
+                    <p>
+                        Note: movie musicals and broadway musicals are not distinguished here. Rate them together!
+                    </p>
+            </div>
+            
+        </div>
+        
     </main>
 
-    <footer>
-      <hr />
-      <span class="text-reset">Ryan Vance</span>
-      <br />
-      <a href="https://github.com/ryanvance74/startup">GitHub</a>
+    <footer class="bg-dark text-light footer">
+        <div class="container-fluid d-flex justify-content-between">
+            <span>Ryan Vance</span>
+            <a href="https://github.com/ryanvance74/startup">GitHub</a>
+        </div>
     </footer>
   </body>
 </html>
