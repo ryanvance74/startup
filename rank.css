@@ -16,7 +16,7 @@ main {
 .header-container {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: left;
     justify-content: space-between; 
     background-color: #b6aaaa;
 }
@@ -25,6 +25,16 @@ main {
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+.notification-item {
+    list-style: none;
+    background-color: #c7a659;
+    outline: 2px solid;
+}
+
+.area-header {
+    margin-bottom: 0.25rem;
 }
 
 .navbar-item a {
