@@ -19,7 +19,7 @@
       crossorigin="anonymous">
     </script>
   </head>
-  <body>
+  <body class="custom-bg text-dark">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">MusicalRankings<sup>&reg;</sup></a>
@@ -37,12 +37,12 @@
        </div>
     </nav>
 
-    <main class="flex-grow-1">
+    <main class="container flex-grow-1 d-flex flex-column align-items-center">
       <h1>Welcome to MusicalRankings, the site where you can rank musicals!</h1>
       <form method="get" action="rank.html">
-        <div>
-          <span>@</span>
-          <input type="text" placeholder="your@email.com" />
+        <div class="input-group mb-3">
+          <span class="input-group-text">@</span>
+          <input class="form-control" type="text" placeholder="your@email.com" />
         </div>
         <div>
           <span>🔒</span>
