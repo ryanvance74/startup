@@ -69,12 +69,12 @@ Notes: use the height or width parameter in the <img> tag in order to specify th
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
+- [x] **Visually appealing colors and layout. No overflowing elements.** - I used a consistent style throughout all of the pages and ensured that it looked as I intended using the Go Live extension.
+- [x] **Use of a CSS framework** - I used Bootstrap throughout all of the pages.
+- [x] **All visual elements styled using CSS** - I made sure that all elements including text and background were styled with CSS across all pages.
+- [x] **Responsive to window resizing using flexbox and/or grid display** - I used the grid and flex commands to make sure resizing worked. For example I put everything in a row and then put children elements in columns.
+- [x] **Use of a imported font** - I imported the Georgia font from Google Fonts and used it throughout all of my pages.
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I used element selectors throughout, including selecting h4 headers to make them bold. I used classes extensively, mostly in order to call bootstrap class styles. Finally, I used the psuedo selector :hover in the index.css page to make the navbar items turn bold when hovered over.
 
 ## 🚀 React part 1: Routing deliverable
 
