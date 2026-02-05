@@ -43,6 +43,21 @@ menu {
   list-style: none;
 }
 
+.column-container {
+    display: flex;
+    flex-direction: column;       
+    align-items: flex-start;  
+    padding: 50px;
+    gap: 40px;                
+}
+
+.notification-col, .musicals-col {
+    flex: 1;            
+    display: flex;
+    flex-direction: column;    
+    max-width: 500px;        
+}
+
 footer {
     margin: 5px;
     font-family:'Arial';
