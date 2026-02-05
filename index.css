@@ -36,13 +36,10 @@ h1 {
     font-family:'Arial';
     font-size: 2.5rem;                 
     color: #cf0707;                  
-    font-weight: 800;      
+    font-weight: 1000;      
 }
 
 menu {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   list-style: none;
 }
 
