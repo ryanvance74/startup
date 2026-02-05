@@ -6,18 +6,10 @@
 
 body, html {
   height: 100%;
+  font-family: 'Georiga' !important;
 }
 h1 {
     background-color: #8dc2d3
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-html {
-    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 body {
