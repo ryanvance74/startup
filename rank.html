@@ -17,7 +17,7 @@
       crossorigin="anonymous">
     </script>
   </head>
-  <body>
+  <body class="custom-bg text-dark">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">MusicalRankings<sup>&reg;</sup></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,38 +30,42 @@
           <li class="nav-item"><a class="nav-link" href="friends.html">Friends</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="showings.html">Showings</a></li>
-        </menu>
        </div>
     </nav>
 
-    <main class="column-container">
-      <h4 class="area-header">Notifications:</h4>
-      <ul class="notification-col">
+    <main class="container-fluid flex-grow-1 d-flex flex-column align-items-left">
+      <div class="row">
+        <div class="col-md-3">
+            <h4 class="area-header">Notifications:</h4>
+      <div class="notification-col">
         
-        <li class="notification-item">Your friend Tim rated Les Mis 3 out of 5</li>
-        <li class="notification-item">Ada sent you a friend request</li>
+        <div><span>Your friend Tim rated Les Mis 3 out of 5</span></div>
+        <div><span>Ada sent you a friend request</span></div>
       </ul>
       <br />
 
-      <div class="musicals-col">
+      <div>
         <h4>Musicals:</h4>
-        <span class="musical-name">Hamilton</span>
+        <span id="musical-name">Hamilton</span>
       </div>
-      <div>
-        <label for="count">How many stars is this musical?</label>
-        <input type="text" id="count" value="--" readonly />
-      </div>
-      <br />
-      <div>
-        <button>Submit Rating</button>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="count">How many stars is this musical?</label>
+        <input class="form-control" type="text" id="count" value="--" readonly />
       </div>
       <br />
+      <div>
+        <button class="btn btn-primary">Submit Rating</button>
+      </div>
+      <br />
+        </div>
+      </div>
+      
     </main>
-    <footer>
-      <hr />
-      <span class="text-reset">Ryan Vance</span>
-      <br />
-      <a href="https://github.com/ryanvance74/startup">GitHub</a>
+    <footer class="bg-dark text-light footer">
+        <div class="container-fluid d-flex justify-content-between">
+            <span>Ryan Vance</span>
+            <a href="https://github.com/ryanvance74/startup">GitHub</a>
+        </div>
     </footer>
   </body>
 </html>

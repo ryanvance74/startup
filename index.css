@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com');
+
 .custom-bg {
     background-color: #8dc2d3
 }
@@ -9,4 +11,8 @@ body, html {
 body {
     display: flex;
     flex-direction: column;
+}
+
+html {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
