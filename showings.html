@@ -10,13 +10,14 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="showings.css">
     <script 
       src="https://cdn.jsdelivr.net" 
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
       crossorigin="anonymous">
     </script>
   </head>
-  <body>
+  <body class="custom-bg text-dark justify">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">MusicalRankings<sup>&reg;</sup></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,10 +33,9 @@
         </menu>
        </div>
     </nav>
-    <img src="west_end.png" height="200">
-    <main>
+    <main class="container-fluid d-flex flex-column justify-content-between">
+        <h4 class="text-center"> Latest on musicals at the West End </h4>
       <table>
-        <caption> Latest on musicals at the West End </caption>
         <thead>
           <tr>
             <th>#</th>
@@ -68,11 +68,11 @@
       <button> Refresh Listings </button>
     </main>
 
-    <footer>
-      <hr />
-      <span class="text-reset">Ryan Vance</span>
-      <br />
-      <a href="https://github.com/ryanvance74/startup">GitHub</a>
+    <footer class="bg-dark text-light footer">
+        <div class="container-fluid d-flex justify-content-between">
+            <span>Ryan Vance</span>
+            <a href="https://github.com/ryanvance74/startup">GitHub</a>
+        </div>
     </footer>
   </body>
 </html>
