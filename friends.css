@@ -7,6 +7,10 @@ body, html {
   font-family: 'Georiga' !important;
 }
 
+h4 {
+    font-weight: bold !important;
+}
+
 body {
     
     display: flex;

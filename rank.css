@@ -9,6 +9,14 @@ body, html {
   font-family: 'Georiga' !important;
 }
 
+h4 {
+    font-weight: bold !important;
+}
+
+.notification {
+    color: #ff0000;
+}
+
 body {
     display: flex;
     flex-direction: column;
