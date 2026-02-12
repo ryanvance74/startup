@@ -11,41 +11,21 @@ import { About } from './about/about.jsx';
 export default function App() {
   return (
     <BrowserRouter>
-        <div className="body bg-dark text-light">
-        <header className="container-fluid">
-            <nav className="navbar fixed-top navbar-dark">
-            <div className="navbar-brand">
-                Simon<sup>&reg;</sup>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <NavLink className="navbar-brand" href="index.html">MusicalRankings<sup>&reg;</sup></NavLink>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse">
+                <ul className="navbar-nav">
+                <li className="nav-item"><NavLink className="nav-link" to="index">Home</NavLink></li>
+                <li className="nav-item"><NavLink className="nav-link" to="rank">Rank</NavLink></li>
+                <li className="nav-item"><NavLink className="nav-link" to="friends">Friends</NavLink></li>
+                <li className="nav-item"><NavLink className="nav-link" to="about">About</NavLink></li>
+                <li className="nav-item"><NavLink className="nav-link" to="showings">Showings</NavLink></li>
+                </ul>
             </div>
-            <menu className="navbar-nav">
-                <li className="nav-item">
-                <NavLink className="nav-link" to="">
-                    Login
-                </NavLink>
-                </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="friends">
-                    Friends
-                </NavLink>
-                </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="rank">
-                    Rank
-                </NavLink>
-                </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="showings">
-                    Showings
-                </NavLink>
-                </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="about">
-                    About
-                </NavLink>
-                </li>
-            </menu>
-            </nav>
-        </header>
+        </nav>
 
         <Routes>
         <Route path='/' element={<Login />} exact />
