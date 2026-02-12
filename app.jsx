@@ -36,15 +36,12 @@ export default function App() {
         <Route path='*' element={<NotFound />} />
         </Routes>
 
-        <footer className="bg-dark text-white-50">
-            <div className="container-fluid">
-            <span className="text-reset">Author Name(s)</span>
-            <a className="text-reset" href="https://github.com/webprogramming260/simon-react">
-                Source
-            </a>
-            </div>
-        </footer>
+        <footer className="bg-dark text-light footer">
+        <div className="container-fluid d-flex justify-content-between">
+            <span>Ryan Vance</span>
+            <NavLink to="https://github.com/ryanvance74/startup">GitHub</NavLink>
         </div>
+    </footer>
     </BrowserRouter>
   );
 }
