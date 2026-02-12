@@ -3,10 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login.jsx';
-import { About } from './about/about.jsx';
 import { Friends } from './friends/friends.jsx';
 import { Rank } from './rank/rank.jsx';
 import { Showings } from './showings/showings.jsx';
+import { About } from './about/about.jsx';
 
 export default function App() {
   return (
@@ -24,13 +24,18 @@ export default function App() {
                 </NavLink>
                 </li>
                 <li className="nav-item">
-                <NavLink className="nav-link" to="play">
-                    Play
+                <NavLink className="nav-link" to="friends">
+                    Friends
                 </NavLink>
                 </li>
                 <li className="nav-item">
-                <NavLink className="nav-link" to="scores">
-                    Scores
+                <NavLink className="nav-link" to="rank">
+                    Rank
+                </NavLink>
+                </li>
+                <li className="nav-item">
+                <NavLink className="nav-link" to="showings">
+                    Showings
                 </NavLink>
                 </li>
                 <li className="nav-item">
@@ -44,8 +49,9 @@ export default function App() {
 
         <Routes>
         <Route path='/' element={<Login />} exact />
-        <Route path='/play' element={<Play />} />
-        <Route path='/scores' element={<Scores />} />
+        <Route path='/friends' element={<Friends />} />
+        <Route path='/rank' element={<Rank />} />
+        <Route path='/showings' element={<Showings />} />
         <Route path='/about' element={<About />} />
         <Route path='*' element={<NotFound />} />
         </Routes>
