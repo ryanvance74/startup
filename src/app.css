@@ -37,7 +37,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url('west_end.png'); 
+    background-image: url('/assets/west_end.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

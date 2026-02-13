@@ -8,7 +8,7 @@ export function About() {
         <div className="row"> 
             <div className="col-md-6">
                 <h4>Welcome to the theatre!</h4>
-                    <div id="picture" className="picture-box"><img width="400px" src="theatre.png" /></div>
+                    <div id="picture" className="picture-box"><img width="400px" src={`${import.meta.env.BASE_URL}assets/theatre.png`} /></div>
 
                     <p>
                         MusicalRankings is a site where you can rank and rate your favorite musicals! Rank your top five musicals, 
@@ -19,7 +19,6 @@ export function About() {
                         Note: movie musicals and broadway musicals are not distinguished here. Rate them together!
                     </p>
             </div>
-            
         </div>
         
     </main>
