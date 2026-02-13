@@ -1,5 +1,7 @@
 import React from 'react';
 import './friends.css'
+import Button from 'react-bootstrap/Button';
+
 export function Friends() {
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">

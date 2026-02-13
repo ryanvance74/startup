@@ -1,8 +1,10 @@
 import React from 'react';
 import './rank.css'
+import Button from 'react-bootstrap/Button';
+
 export function Rank() {
   return (
-    <main className="container-fluid flex-grow-1 d-flex flex-column align-items-left">
+    <main className="container-fluid flex-grow-1 d-flex flex-column align-items">
       <div className="row">
         <div className="col-md-3">
             <h4 className="area-header">Notifications:</h4>

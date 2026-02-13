@@ -1,5 +1,6 @@
 import React from 'react';
 import './showings.css'
+import Button from 'react-bootstrap/Button';
 export function Showings() {
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
