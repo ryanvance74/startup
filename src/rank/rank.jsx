@@ -1,6 +1,6 @@
 import React from 'react';
-import './friends.css'
-export function Friends() {
+import './rank.css'
+export function Rank() {
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column align-items-left">
       <div className="row">
