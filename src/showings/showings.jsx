@@ -1,5 +1,6 @@
 import React from 'react';
 import './showings.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 export function Showings() {
   return (

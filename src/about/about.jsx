@@ -1,5 +1,7 @@
 import React from 'react';
 import './about.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 export function About() {
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">

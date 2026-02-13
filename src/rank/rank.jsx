@@ -1,6 +1,7 @@
 import React from 'react';
 import './rank.css'
 import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Rank() {
   return (
