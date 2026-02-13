@@ -80,9 +80,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] **Bundled using Vite** - I installed Vite as per the instructions.
+- [x] **Components** - I ported each of my HTML files to be react components in order to implement a single-page application.
+- [x] **Router** - I used the React Router to implement routes that allow the user to navigate the application in React.
 
 ## 🚀 React part 2: Reactivity deliverable
 
