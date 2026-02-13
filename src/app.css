@@ -31,7 +31,7 @@ body {
     background-color: #8dc2d3; 
 }
 
-body::before {
+.background::before {
     content: "";
     position: absolute;
     width: 100%;
