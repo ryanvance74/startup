@@ -37,7 +37,6 @@ export function Rank() {
       <div className="notification-col">
         <ul> 
             <div><span className="notification">Your friend Tim rated Les Mis 3 out of 5</span></div>
-            <div><span className="notification">Ada sent you a friend request</span></div>
         </ul>
       </div>
       <br />
@@ -48,6 +47,14 @@ export function Rank() {
       </div>
       <div className="input-group mb-3">
         <label className="input-group-text" for="count">How many stars is this musical?</label>
+        {[1,2,3,4,5].map((star) => (
+            <Button key={star}
+                    onClick={() => setCurrentRating(star)}
+                    onMouseEnter={() => setHover(star)}
+                    onMouseLeave={() => setHover(0)}>
+        
+            </Button>
+        ))}
         <input className="form-control" type="text" id="count" value="--" readonly />
       </div>
       <br />
