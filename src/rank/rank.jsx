@@ -16,6 +16,13 @@ export function Rank() {
     }, [])
     
     const submitRating = () => {
+        if (!musicalName.trim()) {
+            setStatusMessage('You must enter a musical name before you submit a rating.')
+            setTimeout(() => {
+                setStatusMessage('');
+            }, 3000)
+            return;
+        }
         if (currentRating === 0) {
             setStatusMessage('You must select a rating for the musical first.')
             setTimeout(() => {
@@ -31,19 +38,18 @@ export function Rank() {
             name: musicalName,
             rating: currentRating
         };
-        const updatedRatings = [...allRatings];
-        let justUpdate = false;
-        for (ratingObj of updatedRatings) {
-            if (ratingObj.name === newRating.name) {
-                ratingObj.rating = newRating.rating
-                justUpdate = true;
-            }
-        }
-        if (!justUpdate) {
-            setAllRatings([...updatedRatings, newRating])
+
+        const dupIdx = allRatings.findIndex(
+            (tempRating) => tempRating.name === newRating.name
+        );
+        let updatedRatings;
+        if (dupIdx !== -1) {
+            updatedRatings = [...allRatings];
+            updatedRatings[dupIdx] = {...updatedRatings[dupIdx], rating: currentRating};
         } else {
-            setAllRatings(updatedRatings)
+            updatedRatings = [...allRatings, newRating];
         }
+        setAllRatings(updatedRatings);
         setCurrentRating(0)
         localStorage.setItem('musical_ratings', JSON.stringify(updatedRatings))
     }
