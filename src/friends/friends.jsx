@@ -46,6 +46,15 @@ export function Friends() {
             })
         }, 5000)
     }
+
+    const resetFriends = () => {
+        setFriends([])
+        localStorage.setItem('saved_friends', JSON.stringify([]))
+        setStatusMessage('Reset friends list.')
+                setTimeout(() => {
+                    setStatusMessage('');
+                }, 3000)
+    }
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
         <div className="row">
@@ -61,6 +70,11 @@ export function Friends() {
                     <div>
                         <Button variant='primary' onClick={sendRequest}>
                         Send Friend Request
+                        </Button>
+                    </div>
+                    <div>
+                        <Button variant='primary' onClick={resetFriends}>
+                        Reset Friends
                         </Button>
                     </div>
             </div>
@@ -89,7 +103,7 @@ export function Friends() {
                 </table>
             </div>
             {statusMessage && <div className="alert">
-                {message}
+                {statusMessage}
                 </div>}
             <div className="col-md-6">
                 <h4 className="text-center" id="table-title"> Pending Requests </h4>
