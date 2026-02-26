@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useState, useEffect} from 'react';
 import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login.jsx';
@@ -15,6 +16,17 @@ export default function App() {
         Authenticated: 'authenticated',
         Unauthenticated: 'unauthenticated'
     }
+    const [authState, setAuthState] = useState(AuthState.Unknown);
+    const [userName, setUserName] = useState('');
+    useEffect(() => {
+        const possibleUser = localStorage.getItem('username')
+        if (possibleUser) {
+            setUserName(possibleUser)
+            setAuthState(AuthState.Authenticated)
+        } else {
+            setAuthState(AuthState.Unauthenticated)
+        }
+    }, [])
   return (
     <BrowserRouter>
         <div className="body">
@@ -41,7 +53,16 @@ export default function App() {
             </nav>
 
             <Routes>
-            <Route path='/' element={<Login />} exact />
+            <Route path='/' element={<Login 
+                userName={userName}
+                authState={authState}
+                onAuthChange={(userName, authState) => {
+                    setAuthState(authState);
+                    setUserName(userName);
+                    localStorage.setItem('username', userName);
+                }}
+            />} 
+            exact />
             <Route path='/friends' element={<Friends />} />
             <Route path='/rank' element={<Rank />} />
             <Route path='/showings' element={<Showings />} />
