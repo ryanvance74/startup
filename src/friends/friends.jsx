@@ -37,7 +37,7 @@ export function Friends() {
                     <span className="input-group-text">@</span>
                     <input className="form-control" type="text" placeholder="your@email.com" 
                             value={inputValue}
-                            onChange={(e) => setTempInput(e.target.value)}
+                            onChange={(e) => setInput(e.target.value)}
                     />
                     </div>
                     <div>
@@ -64,6 +64,25 @@ export function Friends() {
                             <td>{name}</td>
                             <td>{Math.floor(Math.random()*30)}</td>
                             <td>{new Date().toLocaleDateString()}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <div className="col-md-6">
+                <h4 className="text-center" id="table-title"> Pending Requests </h4>
+                <table className="table table-success table-striped-columns">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {pendingRequests.map((name, i) => (
+                        <tr key={i}> 
+                            <td>{name}</td>
                         </tr>
                     ))}
                     </tbody>
