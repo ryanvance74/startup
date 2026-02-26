@@ -16,7 +16,7 @@ export function Friends() {
 
     const sendRequest = () => {
         if (!input.trim()) return;
-        tempName = input;
+        const tempName = input;
         setInput('');
         setPendingRequests((prev) => [...prev, tempName]);
         setTimeout(() =>  {
@@ -25,8 +25,8 @@ export function Friends() {
                 const newFriends = [...prevFriends, tempName];
                 localStorage.setItem('saved_friends', JSON.stringify(newFriends));
                 return newFriends;
-            }, 3000)
-        })
+            })
+        }, 3000)
     }
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
@@ -36,7 +36,7 @@ export function Friends() {
                     <div className="input-group mb-6">
                     <span className="input-group-text">@</span>
                     <input className="form-control" type="text" placeholder="your@email.com" 
-                            value={inputValue}
+                            value={input}
                             onChange={(e) => setInput(e.target.value)}
                     />
                     </div>
@@ -60,7 +60,8 @@ export function Friends() {
 
                     <tbody>
                     {friends.map((name, i) => (
-                        <tr key={i}> 
+                        <tr>
+                            <td>{i}</td> 
                             <td>{name}</td>
                             <td>{Math.floor(Math.random()*30)}</td>
                             <td>{new Date().toLocaleDateString()}</td>
