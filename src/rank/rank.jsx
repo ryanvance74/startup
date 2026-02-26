@@ -30,9 +30,20 @@ export function Rank() {
         const newRating = {
             name: musicalName,
             rating: currentRating
+        };
+        const updatedRatings = [...allRatings];
+        let justUpdate = false;
+        for (ratingObj of updatedRatings) {
+            if (ratingObj.name === newRating.name) {
+                ratingObj.rating = newRating.rating
+                justUpdate = true;
+            }
         }
-        const updatedRatings = [...allRatings, newRating]
-        setAllRatings(updatedRatings)
+        if (!justUpdate) {
+            setAllRatings([...updatedRatings, newRating])
+        } else {
+            setAllRatings(updatedRatings)
+        }
         setCurrentRating(0)
         localStorage.setItem('musical_ratings', JSON.stringify(updatedRatings))
     }
