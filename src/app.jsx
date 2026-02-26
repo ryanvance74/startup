@@ -26,10 +26,16 @@ export default function App() {
                 <div className="collapse navbar-collapse">
                     <ul className="navbar-nav">
                     <li className="nav-item"><NavLink className="nav-link" to="/">Home</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link" to="/rank">Rank</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link" to="/friends">Friends</NavLink></li>
+                    {authState === AuthState.Authenticated && (
+                        <li className="nav-item"><NavLink className="nav-link" to="/rank">Rank</NavLink></li>
+                    )}
+                    {authState === AuthState.Authenticated && (
+                        <li className="nav-item"><NavLink className="nav-link" to="/friends">Friends</NavLink></li>
+                    )}
+                    {authState === AuthState.Authenticated && (
+                        <li className="nav-item"><NavLink className="nav-link" to="/showings">Showings</NavLink></li>
+                    )}
                     <li className="nav-item"><NavLink className="nav-link" to="/about">About</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link" to="/showings">Showings</NavLink></li>
                     </ul>
                 </div>
             </nav>
