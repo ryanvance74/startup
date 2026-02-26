@@ -50,10 +50,18 @@ export function Rank() {
             updatedRatings = [...allRatings, newRating];
         }
         setAllRatings(updatedRatings);
-        setCurrentRating(0)
-        localStorage.setItem('musical_ratings', JSON.stringify(updatedRatings))
+        setMusicalName('');
+        setCurrentRating(0);
+        localStorage.setItem('musical_ratings', JSON.stringify(updatedRatings));
     }
-
+    const resetRatings = () => {
+        setAllRatings([])
+        localStorage.setItem('musical_ratings', JSON.stringify([]))
+        setStatusMessage('Reset ratings list.')
+                setTimeout(() => {
+                    setStatusMessage('');
+                }, 3000)
+    }
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column align-items">
       <div className="row">
@@ -87,6 +95,11 @@ export function Rank() {
                         Submit Rating
                         </Button>
       </div>
+      <div>
+                        <Button variant='primary' onClick={resetRatings}>
+                        Reset Ratings
+                        </Button>
+                    </div>
       <br />
         </div>
       </div>
