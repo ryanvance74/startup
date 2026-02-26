@@ -5,8 +5,29 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Friends() {
-    const [tempInput, setTempInput] = useState('');
-    const [savedInput, setSavedInput] = useState('');
+    const [input, setInput] = useState('');
+    const [pendingRequests, setPendingRequests] = useState([]);
+    const [friends, setFriends] = useState([]);
+
+    useEffect(() => {
+        const saved = localStorage.getItem('saved_friends')
+        if (saved) setFriends(JSON.parse(saved));
+    }, [])
+
+    const sendRequest = () => {
+        if (!input.trim()) return;
+        tempName = input;
+        setInput('');
+        setPendingRequests((prev) => [...prev, tempName]);
+        setTimeout(() =>  {
+            setPendingRequests((prev) => prev.filter((name) => name !== tempName));
+            setFriends((prevFriends) => {
+                const newFriends = [...prevFriends, tempName];
+                localStorage.setItem('saved_friends', JSON.stringify(newFriends));
+                return newFriends;
+            }, 3000)
+        })
+    }
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
         <div className="row">
@@ -20,7 +41,7 @@ export function Friends() {
                     />
                     </div>
                     <div>
-                        <Button variant='primary' onClick={saveInput}>
+                        <Button variant='primary' onClick={sendRequest}>
                         Send Friend Request
                         </Button>
                     </div>
