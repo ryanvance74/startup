@@ -98,6 +98,9 @@ export function Rank() {
       <br />
 
       <div>
+        {statusMessage && <div className="alert">
+                {statusMessage}
+                </div>}
         <label>Musical:</label>
         <input id="musical-name" type="text" placeholder="Hamilton" value={musicalName} onChange={(e) => setMusicalName(e.target.value)}></input>
       </div>
@@ -125,9 +128,7 @@ export function Rank() {
                     </div>
       <br />
         </div>
-        {statusMessage && <div className="alert">
-                {statusMessage}
-                </div>}
+        
       <div className="col-md-6">
                 <h4 className="text-center" id="table-title"> Ratings </h4>
                 <table className="table table-success table-striped-columns">
