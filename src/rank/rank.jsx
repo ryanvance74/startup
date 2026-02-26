@@ -10,7 +10,7 @@ export function Rank() {
     const [musicalName, setMusicalName] = useState('');
     const [allRatings, setAllRatings] = useState([]);
     const [statusMessage, setStatusMessage] = useState('');
-    const [notifications, setNotifications] = useState(0);
+    const [notifications, setNotifications] = useState([]);
     const activityTemplates = [
             "James just rated Hamilton 5/5!",
             "Leo rated Phantom of the Opera 4/5!",
@@ -19,10 +19,10 @@ export function Rank() {
             "Leah rated Anastasia 3/5!",
             "Isla rated Beauty and the Beast 1/5!"
         ];
-    const currMsg = 0;
     useEffect(() => {
         const interval = setInterval(() => {
-        const nextMsg = (currMsg + 1) % activityTemplates.length
+        const nextMsg = Math.floor(Math.random() * activityTemplates.length);
+        
         setNotifications((prev) => {
             const updatedNotifications = [activityTemplates[nextMsg], ...prev]
             return updatedNotifications.slice(0,3);
@@ -125,8 +125,7 @@ export function Rank() {
                     </div>
       <br />
         </div>
-      </div>
-      {statusMessage && <div className="alert">
+        {statusMessage && <div className="alert">
                 {statusMessage}
                 </div>}
       <div className="col-md-6">
@@ -151,6 +150,7 @@ export function Rank() {
                     </tbody>
                 </table>
             </div>
+      </div>
     </main>
   );
 }
