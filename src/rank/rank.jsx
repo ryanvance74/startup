@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
 import './rank.css'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,11 +22,12 @@ export function Rank() {
         }
         alert(`You rated ${musicalName} ${currentRating} stars!`)
         const newRating = {
-            musical: musicalName,
+            name: musicalName,
             rating: currentRating
         }
         const updatedRatings = [...allRatings, newRating]
         setAllRatings(updatedRatings)
+        setCurrentRating(0)
         localStorage.setItem('musical_ratings', JSON.stringify(updatedRatings))
     }
 
@@ -42,8 +44,8 @@ export function Rank() {
       <br />
 
       <div>
-        <h4>Musicals:</h4>
-        <span id="musical-name">Hamilton</span>
+        <label>Musical:</label>
+        <input id="musical-name" type="text" placeholder="Hamilton" value={musicalName} onChange={(e) => setMusicalName(e.target.value)}></input>
       </div>
       <div className="input-group mb-3">
         <label className="input-group-text" for="count">How many stars is this musical?</label>
@@ -59,14 +61,35 @@ export function Rank() {
       </div>
       <br />
       <div>
-        <Button variant='primary' onClick={submitRating()}>
+        <Button variant='primary' onClick={submitRating}>
                         Submit Rating
                         </Button>
       </div>
       <br />
         </div>
       </div>
-      
+      <div className="col-md-6">
+                <h4 className="text-center" id="table-title"> Ratings </h4>
+                <table className="table table-success table-striped-columns">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Musical</th>
+                        <th>Rating</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {allRatings.map((musical, i) => (
+                        <tr key={i}>
+                            <td>{i + 1}</td> 
+                            <td>{musical.name}</td>
+                            <td>{musical.rating}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
     </main>
   );
 }
