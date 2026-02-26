@@ -12,7 +12,7 @@ export function Rank() {
     useEffect(() => {
         const saved = localStorage.getItem('musical_ratings');
         if (saved) setAllRatings(JSON.parse(saved))
-    })
+    }, [])
     
     const submitRating = () => {
         if (currentRating === 0) {
@@ -48,18 +48,18 @@ export function Rank() {
       <div className="input-group mb-3">
         <label className="input-group-text" for="count">How many stars is this musical?</label>
         {[1,2,3,4,5].map((star) => (
-            <Button key={star}
+            <span key={star}
                     onClick={() => setCurrentRating(star)}
                     onMouseEnter={() => setHover(star)}
                     onMouseLeave={() => setHover(0)}>
-        
-            </Button>
+                {star <= (hover || currentRating) ? '★' : '☆'}
+            </span>
         ))}
         <input className="form-control" type="text" id="count" value="--" readonly />
       </div>
       <br />
       <div>
-        <Button variant='primary' onClick={() => {}}>
+        <Button variant='primary' onClick={submitRating()}>
                         Submit Rating
                         </Button>
       </div>
