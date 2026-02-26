@@ -4,6 +4,31 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Rank() {
+    const [currentRating, setCurrentRating] = useState(0);
+    const [hover, setHover] = useState(0);
+    const [musicalName, setMusicalName] = useState('');
+    const [allRatings, setAllRatings] = useState([]);
+
+    useEffect(() => {
+        const saved = localStorage.getItem('musical_ratings');
+        if (saved) setAllRatings(JSON.parse(saved))
+    })
+    
+    const submitRating = () => {
+        if (currentRating === 0) {
+            alert('You must select a rating for the musical first.');
+            return;
+        }
+        alert(`You rated ${musicalName} ${currentRating} stars!`)
+        const newRating = {
+            musical: musicalName,
+            rating: currentRating
+        }
+        const updatedRatings = [...allRatings, newRating]
+        setAllRatings(updatedRatings)
+        localStorage.setItem('musical_ratings', JSON.stringify(updatedRatings))
+    }
+
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column align-items">
       <div className="row">
