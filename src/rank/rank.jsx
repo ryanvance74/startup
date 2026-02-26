@@ -9,7 +9,7 @@ export function Rank() {
     const [hover, setHover] = useState(0);
     const [musicalName, setMusicalName] = useState('');
     const [allRatings, setAllRatings] = useState([]);
-
+    const [statusMessage, setStatusMessage] = useState('');
     useEffect(() => {
         const saved = localStorage.getItem('musical_ratings');
         if (saved) setAllRatings(JSON.parse(saved))
@@ -17,10 +17,16 @@ export function Rank() {
     
     const submitRating = () => {
         if (currentRating === 0) {
-            alert('You must select a rating for the musical first.');
+            setStatusMessage('You must select a rating for the musical first.')
+            setTimeout(() => {
+                setStatusMessage('');
+            }, 3000)
             return;
         }
-        alert(`You rated ${musicalName} ${currentRating} stars!`)
+        setStatusMessage(`You rated ${musicalName} ${currentRating} stars!`)
+        setTimeout(() => {
+                setStatusMessage('');
+        }, 3000)
         const newRating = {
             name: musicalName,
             rating: currentRating
@@ -57,7 +63,6 @@ export function Rank() {
                 {star <= (hover || currentRating) ? '★' : '☆'}
             </span>
         ))}
-        <input className="form-control" type="text" id="count" value="--" readonly />
       </div>
       <br />
       <div>
@@ -68,6 +73,9 @@ export function Rank() {
       <br />
         </div>
       </div>
+      {statusMessage && <div className="alert">
+                {statusMessage}
+                </div>}
       <div className="col-md-6">
                 <h4 className="text-center" id="table-title"> Ratings </h4>
                 <table className="table table-success table-striped-columns">
