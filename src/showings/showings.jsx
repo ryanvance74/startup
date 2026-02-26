@@ -17,7 +17,7 @@ export function Showings() {
         setTimeout(() => {
             const idx = Math.floor(Math.random() * 3)
             const new_val = Math.floor(Math.random() * 450 + 70)
-            const showings_val = Math.floor(Math.random() * 4)
+            const showings_val = Math.floor(Math.random() * 3 + 1)
             const updatedData = [...mockAPIData]
             updatedData[idx].price = new_val
             updatedData[idx].showings_today = showings_val
