@@ -1,9 +1,12 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
 import './friends.css'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Friends() {
+    const [tempInput, setTempInput] = useState('');
+    const [savedInput, setSavedInput] = useState('');
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
         <div className="row">
@@ -11,10 +14,13 @@ export function Friends() {
                 <h4>Send a Friend Request:</h4>
                     <div className="input-group mb-6">
                     <span className="input-group-text">@</span>
-                    <input className="form-control" type="text" placeholder="your@email.com" />
+                    <input className="form-control" type="text" placeholder="your@email.com" 
+                            value={inputValue}
+                            onChange={(e) => setTempInput(e.target.value)}
+                    />
                     </div>
                     <div>
-                        <Button variant='primary' onClick={() => {}}>
+                        <Button variant='primary' onClick={saveInput}>
                         Send Friend Request
                         </Button>
                     </div>
