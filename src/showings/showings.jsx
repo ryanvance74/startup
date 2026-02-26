@@ -20,6 +20,7 @@ export function Showings() {
             const showings_val = Math.floor(Math.random() * 4)
             const updatedData = [...mockAPIData]
             updatedData[idx].price = new_val
+            updatedData[idx].showings_today = showings_val
             setMusicals(mockAPIData)
             setLoadingMessage(false)
         }, 3000)
