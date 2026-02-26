@@ -8,6 +8,7 @@ export function Friends() {
     const [input, setInput] = useState('');
     const [pendingRequests, setPendingRequests] = useState([]);
     const [friends, setFriends] = useState([]);
+    const [statusMessage, setStatusMessage] = useState('');
 
     useEffect(() => {
         const saved = localStorage.getItem('saved_friends')
@@ -16,6 +17,14 @@ export function Friends() {
 
     const sendRequest = () => {
         if (!input.trim()) return;
+        if (friends.some((friend) => friend.name === input)) {
+            setStatusMessage('You are already friends with this person.');
+            setTimeout(() => {
+                setStatusMessage('');
+            }, 3000)
+            return
+        }
+        setStatusMessage('Sending request...')
         const tempName = input;
         setInput('');
         setPendingRequests((prev) => [...prev, tempName]);
@@ -28,10 +37,14 @@ export function Friends() {
                     since: new Date().toLocaleDateString()
                 };
                 const newFriends = [...prevFriends, newFriendObj];
+                setStatusMessage('Successfully added friend!')
+                setTimeout(() => {
+                    setStatusMessage('');
+                }, 3000)
                 localStorage.setItem('saved_friends', JSON.stringify(newFriends));
                 return newFriends;
             })
-        }, 3000)
+        }, 5000)
     }
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
@@ -40,7 +53,7 @@ export function Friends() {
                 <h4>Send a Friend Request:</h4>
                     <div className="input-group mb-6">
                     <span className="input-group-text">@</span>
-                    <input className="form-control" type="text" placeholder="your@email.com" 
+                    <input className="form-control" type="text" placeholder="john123" 
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                     />
@@ -75,13 +88,14 @@ export function Friends() {
                     </tbody>
                 </table>
             </div>
-
+            {statusMessage && <div className="alert">
+                {message}
+                </div>}
             <div className="col-md-6">
                 <h4 className="text-center" id="table-title"> Pending Requests </h4>
                 <table className="table table-success table-striped-columns">
                     <thead>
                     <tr>
-                        <th>#</th>
                         <th>Name</th>
                     </tr>
                     </thead>
