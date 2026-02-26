@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
 import './showings.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
@@ -15,8 +16,10 @@ export function Showings() {
         setLoadingMessage(true);
         setTimeout(() => {
             const idx = Math.floor(Math.random() * 3)
-            const new_val = Math.floor(Math.random() * 500)
-            mockAPIData[idx].price = new_val
+            const new_val = Math.floor(Math.random() * 450 + 70)
+            const showings_val = Math.floor(Math.random() * 4)
+            const updatedData = [...mockAPIData]
+            updatedData[idx].price = new_val
             setMusicals(mockAPIData)
             setLoadingMessage(false)
         }, 3000)
@@ -54,7 +57,7 @@ export function Showings() {
                         Refresh Listings
                         </Button>
                     </div>
-                {loading && <div>
+                {loadingMessage && <div>
                     Loading latest showings from the West End!
                 </div>
                     }  
