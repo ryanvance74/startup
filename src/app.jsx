@@ -10,6 +10,11 @@ import { About } from './about/about.jsx';
 import Button from 'react-bootstrap/Button';
 
 export default function App() {
+    const AuthState = {
+        Unknown: 'unknown',
+        Authenticated: 'authenticated',
+        Unauthenticated: 'unauthenticated'
+    }
   return (
     <BrowserRouter>
         <div className="body">
@@ -37,6 +42,7 @@ export default function App() {
             <Route path='/about' element={<About />} />
             <Route path='*' element={<NotFound />} />
             </Routes>
+            
 
             <footer className="bg-dark text-light footer">
                 <div className="container-fluid d-flex justify-content-between">

@@ -122,10 +122,10 @@ export function Rank() {
                         </Button>
       </div>
       <div>
-                        <Button variant='primary' onClick={resetRatings}>
-                        Reset Ratings
-                        </Button>
-                    </div>
+        <Button variant='primary' onClick={resetRatings}>
+        Reset Ratings
+        </Button>
+      </div>
       <br />
         </div>
         
