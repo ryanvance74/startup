@@ -22,7 +22,12 @@ export function Friends() {
         setTimeout(() =>  {
             setPendingRequests((prev) => prev.filter((name) => name !== tempName));
             setFriends((prevFriends) => {
-                const newFriends = [...prevFriends, tempName];
+                const newFriendObj = {
+                    name: tempName,
+                    musicalsRated: Math.floor(Math.random()*30),
+                    since: new Date().toLocaleDateString()
+                };
+                const newFriends = [...prevFriends, newFriendObj];
                 localStorage.setItem('saved_friends', JSON.stringify(newFriends));
                 return newFriends;
             })
@@ -59,12 +64,12 @@ export function Friends() {
                     </thead>
 
                     <tbody>
-                    {friends.map((name, i) => (
-                        <tr>
-                            <td>{i}</td> 
-                            <td>{name}</td>
-                            <td>{Math.floor(Math.random()*30)}</td>
-                            <td>{new Date().toLocaleDateString()}</td>
+                    {friends.map((friend, i) => (
+                        <tr key={i}>
+                            <td>{i + 1}</td> 
+                            <td>{friend.name}</td>
+                            <td>{friend.musicalsRated}</td>
+                            <td>{friend.since}</td>
                         </tr>
                     ))}
                     </tbody>
