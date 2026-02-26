@@ -57,25 +57,15 @@ export function Friends() {
                         <th>Friends Since</th>
                     </tr>
                     </thead>
+
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td> Tim</td>
-                        <td>10</td>
-                        <td>May 20, 2021</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Ada</td>
-                        <td>29</td>
-                        <td>June 2, 2021</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Gunter Spears</td>
-                        <td>7</td>
-                        <td>July 3, 2020</td>
-                    </tr>
+                    {friends.map((name, i) => (
+                        <tr key={i}> 
+                            <td>{name}</td>
+                            <td>{Math.floor(Math.random()*30)}</td>
+                            <td>{new Date().toLocaleDateString()}</td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>
