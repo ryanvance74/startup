@@ -10,6 +10,27 @@ export function Rank() {
     const [musicalName, setMusicalName] = useState('');
     const [allRatings, setAllRatings] = useState([]);
     const [statusMessage, setStatusMessage] = useState('');
+    const [notifications, setNotifications] = useState(0);
+    const activityTemplates = [
+            "James just rated Hamilton 5/5!",
+            "Leo rated Phantom of the Opera 4/5!",
+            "Gabby rated Wicked 5/5!",
+            "José rated Miss Saigon 2/5!",
+            "Leah rated Anastasia 3/5!",
+            "Isla rated Beauty and the Beast 1/5!"
+        ];
+    const currMsg = 0;
+    useEffect(() => {
+        const interval = setInterval(() => {
+        const nextMsg = (currMsg + 1) % activityTemplates.length
+        setNotifications((prev) => {
+            const updatedNotifications = [activityTemplates[nextMsg], ...prev]
+            return updatedNotifications.slice(0,3);
+            })
+        }, 5000)
+        return () => clearInterval(interval)
+    }, [])
+    
     useEffect(() => {
         const saved = localStorage.getItem('musical_ratings');
         if (saved) setAllRatings(JSON.parse(saved))
@@ -69,7 +90,9 @@ export function Rank() {
             <h4 className="area-header">Notifications:</h4>
       <div className="notification-col">
         <ul> 
-            <div><span className="notification">Your friend Tim rated Les Mis 3 out of 5</span></div>
+            {notifications.map((notif) => (
+                <div><span className="notification">{notif}</span></div>
+            ))}
         </ul>
       </div>
       <br />
