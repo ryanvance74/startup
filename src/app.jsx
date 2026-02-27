@@ -9,12 +9,7 @@ import { Rank } from './rank/rank.jsx';
 import { Showings } from './showings/showings.jsx';
 import { About } from './about/about.jsx';
 import Button from 'react-bootstrap/Button';
-
-export const AuthState = {
-        Unknown: 'unknown',
-        Authenticated: 'authenticated',
-        Unauthenticated: 'unauthenticated'
-    }
+import {AuthState} from './auth_state.jsx'
 export default function App() {
     const [authState, setAuthState] = useState(AuthState.Unknown);
     const [userName, setUserName] = useState('');

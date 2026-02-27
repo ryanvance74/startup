@@ -59,7 +59,7 @@ export function Friends() {
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
         <div className="row">
             <div className="col-md-6">
-                <h4>Send a Friend Request:</h4>
+                <h4>Enter a User to Follow:</h4>
                     <div className="input-group mb-6">
                     <span className="input-group-text">@</span>
                     <input className="form-control" type="text" placeholder="john123" 
@@ -79,14 +79,14 @@ export function Friends() {
                     </div>
             </div>
             <div className="col-md-6">
-                <h4 className="text-center" id="table-title"> Friends </h4>
+                <h4 className="text-center" id="table-title"> People That You Follow </h4>
                 <table className="table table-success table-striped-columns">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Name</th>
                         <th>Musicals Rated</th>
-                        <th>Friends Since</th>
+                        <th>Followed Since</th>
                     </tr>
                     </thead>
 
@@ -106,7 +106,7 @@ export function Friends() {
                 {statusMessage}
                 </div>}
             <div className="col-md-6">
-                <h4 className="text-center" id="table-title"> Pending Requests </h4>
+                <h4 className="text-center" id="table-title"> Pending Follows </h4>
                 <table className="table table-success table-striped-columns">
                     <thead>
                     <tr>
