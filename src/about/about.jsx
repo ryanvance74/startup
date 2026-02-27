@@ -1,15 +1,22 @@
 import React from 'react';
 import './about.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useState, useEffect} from 'react';
 
 export function About() {
+    const [userName, setUserName] = useState('')
+    useEffect(() => {
+        setUserName(localStorage.getItem('username'))
+    })
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
         <div className="row"> 
             <div className="col-md-6">
                 <h4>Welcome to the theatre!</h4>
                     <div id="picture" className="picture-box"><img width="400px" src={`${import.meta.env.BASE_URL}assets/theatre.png`} /></div>
-
+                    {userName && <div>
+                        {`Hello ${userName}!`}
+                        </div>}
                     <p>
                         MusicalRankings is a site where you can rank and rate your favorite musicals! Rank your top five musicals, 
                         add your friends, and compare your rankings to your friends'.

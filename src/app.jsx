@@ -9,7 +9,9 @@ import { Rank } from './rank/rank.jsx';
 import { Showings } from './showings/showings.jsx';
 import { About } from './about/about.jsx';
 import Button from 'react-bootstrap/Button';
+import { Navbar, Nav, Container } from 'react-bootstrap'
 import {AuthState} from './auth_state.jsx'
+
 export default function App() {
     const [authState, setAuthState] = useState(AuthState.Unknown);
     const [userName, setUserName] = useState('');
@@ -25,27 +27,27 @@ export default function App() {
   return (
     <BrowserRouter>
         <div className="body">
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <NavLink className="navbar-brand" to="/">MusicalRankings<sup>&reg;</sup></NavLink>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse">
-                    <ul className="navbar-nav">
-                    <li className="nav-item"><NavLink className="nav-link" to="/">Home</NavLink></li>
-                    {authState === AuthState.Authenticated && (
-                        <li className="nav-item"><NavLink className="nav-link" to="/rank">Rank</NavLink></li>
-                    )}
-                    {authState === AuthState.Authenticated && (
-                        <li className="nav-item"><NavLink className="nav-link" to="/friends">Friends</NavLink></li>
-                    )}
-                    {authState === AuthState.Authenticated && (
-                        <li className="nav-item"><NavLink className="nav-link" to="/showings">Showings</NavLink></li>
-                    )}
-                    <li className="nav-item"><NavLink className="nav-link" to="/about">About</NavLink></li>
-                    </ul>
-                </div>
-            </nav>
+            <Navbar className="navbar navbar-expand-lg navbar-dark bg-dark" expand="lg">
+                <Container fluid>
+                    <Navbar.Brand as={NavLink} to="/">MusicalRankings<sup>&reg;</sup></Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse>
+                        <Nav className="me-auto">
+                            <Nav.Link as={NavLink} to="/">Home</Nav.Link>
+                            {authState === AuthState.Authenticated && (
+                                <Nav.Link as={NavLink} to="/rank">Rank</Nav.Link>
+                            )}
+                            {authState === AuthState.Authenticated && (
+                                <Nav.Link as={NavLink} to="/friends">Friends</Nav.Link>
+                            )}
+                            {authState === AuthState.Authenticated && (
+                                <Nav.Link as={NavLink} to="/showings">Showings</Nav.Link>
+                            )}
+                            <Nav.Link as={NavLink} to="/about">About</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>  
+            </Navbar>
 
             <Routes>
             <Route path='/' element={<Login 
@@ -64,7 +66,6 @@ export default function App() {
             <Route path='/about' element={<About />} />
             <Route path='*' element={<NotFound />} />
             </Routes>
-            
 
             <footer className="bg-dark text-light footer">
                 <div className="container-fluid d-flex justify-content-between">
