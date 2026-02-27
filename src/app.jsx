@@ -10,12 +10,12 @@ import { Showings } from './showings/showings.jsx';
 import { About } from './about/about.jsx';
 import Button from 'react-bootstrap/Button';
 
-export default function App() {
-    const AuthState = {
+export const AuthState = {
         Unknown: 'unknown',
         Authenticated: 'authenticated',
         Unauthenticated: 'unauthenticated'
     }
+export default function App() {
     const [authState, setAuthState] = useState(AuthState.Unknown);
     const [userName, setUserName] = useState('');
     useEffect(() => {
