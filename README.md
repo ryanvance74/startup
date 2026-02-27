@@ -88,8 +88,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - I added full functionality using javascript in the React framework. Ranking, friending, and show listings are all functional now.
+- [x] **Hooks** - I used React hooks like useEffect and useState extensively throughout this phase in order to implement the functionality such as keeping track of user input.
 
 ## 🚀 Service deliverable
 
