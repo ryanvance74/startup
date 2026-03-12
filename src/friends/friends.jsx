@@ -11,11 +11,15 @@ export function Friends() {
     const [statusMessage, setStatusMessage] = useState('');
 
     useEffect(() => {
-        const saved = localStorage.getItem('saved_friends')
-        if (saved) setFriends(JSON.parse(saved));
+        fetch('/api/friends')
+            .then(res => res.json())
+            .then(data  => {
+                setFriends(data)
+            })
+            .catch(() => setStatusMessage('Failed to load friends.'))
     }, [])
 
-    const sendRequest = () => {
+    const sendRequest = async () => {
         if (!input.trim()) return;
         if (friends.some((friend) => friend.name === input)) {
             setStatusMessage('You are already friends with this person.');
@@ -25,6 +29,13 @@ export function Friends() {
             return
         }
         setStatusMessage('Sending request...')
+        const res = await fetch('api/make-friend', {
+            method: 'post', 
+            body: JSON.stringify({friendName: input}),
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+        })
         const tempName = input;
         setInput('');
         setPendingRequests((prev) => [...prev, tempName]);
