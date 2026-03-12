@@ -20,12 +20,22 @@ export function Showings() {
             const res = await fetch(url.toString());
             const body = await res.json();
             const events = body._embedded?.events || []
-            const processed = events.map((event) => ({
-                name: event?.name || "None",
-                location: event?._embedded?.venues[0]?.name || "None",
-                date: event?.dates?.start?.dateTime || "None"
-            }))
-            setMusicals(processed)
+
+            const seenNames = new Set();
+            const uniqueMusicals = events.reduce((acc, event) => {
+                const name = event.name
+                if (!seenNames.has(name)) {
+                    seenNames.add(name)
+                    acc.push({
+                        name: name,
+                        location: event?._embedded?.venues[0]?.name || "None",
+                        date: event?.dates?.start?.dateTime || "None"
+                    })
+                }
+                return acc
+            }, [])
+            
+            setMusicals(uniqueMusicals)
         } catch (err) {
             console.error("Failed to fetch TicketMaster API: ", err);
         } finally {
@@ -66,7 +76,7 @@ export function Showings() {
                         </Button>
                     </div>
                 {loadingMessage && <div>
-                    Loading latest showings from the West End!
+                    Loading latest showings from Broadway!
                 </div>
                     }  
             </div>
