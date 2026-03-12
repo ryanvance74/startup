@@ -32,11 +32,15 @@ export function Rank() {
     }, [])
     
     useEffect(() => {
-        const saved = localStorage.getItem('musical_ratings');
-        if (saved) setAllRatings(JSON.parse(saved))
+            fetch('/api/ratings')
+                .then(res => res.json())
+                .then(body  => {
+                    setAllRatings(body.ratings)
+                })
+                .catch(() => setStatusMessage('Failed to load ratings.'))
     }, [])
     
-    const submitRating = () => {
+    const submitRating = async () => {
         if (!musicalName.trim()) {
             setStatusMessage('You must enter a musical name before you submit a rating.')
             setTimeout(() => {
@@ -60,28 +64,37 @@ export function Rank() {
             rating: currentRating
         };
 
-        const dupIdx = allRatings.findIndex(
-            (tempRating) => tempRating.name === newRating.name
-        );
-        let updatedRatings;
-        if (dupIdx !== -1) {
-            updatedRatings = [...allRatings];
-            updatedRatings[dupIdx] = {...updatedRatings[dupIdx], rating: currentRating};
-        } else {
-            updatedRatings = [...allRatings, newRating];
-        }
-        setAllRatings(updatedRatings);
+        
         setMusicalName('');
         setCurrentRating(0);
-        localStorage.setItem('musical_ratings', JSON.stringify(updatedRatings));
+        
+        const res = await fetch('/api/make-rating', {
+            method: 'post', 
+            body: JSON.stringify({rating: newRating}),
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            }
+        })
+        if (res.status === 200) {
+            const body = await res.json();
+            setAllRatings(body.updatedRatings);
+        } else {
+            const body = await res.json();
+            setStatusMessage(`Failed to submit rating: ${body.message}`)
+        }
+        
     }
-    const resetRatings = () => {
-        setAllRatings([])
-        localStorage.setItem('musical_ratings', JSON.stringify([]))
-        setStatusMessage('Reset ratings list.')
-                setTimeout(() => {
-                    setStatusMessage('');
-                }, 3000)
+
+    const resetRatings = async () => {
+        const res = await fetch('/api/ratings', {method: 'delete'})
+        const body = await res.json()
+        if (res.status === 200) {
+            setStatusMessage('Reset ratings.')
+            setAllRatings([])
+        } else {
+            setStatusMessage(`Failed to reset ratings: ${body.message}`)
+        }
+
     }
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column align-items">
