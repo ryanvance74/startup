@@ -29,14 +29,14 @@ function Unauthenticated({ userName, onLogin }) {
     async function loginOrCreate(endpoint) {
         const response = await fetch(endpoint, {
         method: 'post',
-        body: JSON.stringify({ email: userName, password: password }),
+        body: JSON.stringify({ email: inputUserName, password: inputPassword }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
         });
         if (response?.status === 200) {
-            localStorage.setItem('userName', userName);
-            props.onLogin(userName);
+            localStorage.setItem('userName', inputUserName);
+            onLogin(inputUserName);
         } else {
             const body = await response.json();
             setStatusMessage(`⚠ Error: ${body.msg}`);
@@ -54,14 +54,14 @@ function Unauthenticated({ userName, onLogin }) {
                 <span className="input-group-text">🔒</span>
                 <input className="form-control" type="password" placeholder="password" onChange={(e) => setInputPassword(e.target.value)}/>
                 </div>
-                <Button variant='primary' onClick={() => processLogin(inputUserName, inputPassword)}>
+                <Button variant='primary' onClick={() => loginUser()}>
                 Login
                 </Button>
-                <Button variant='primary' onClick={() => processCreate(inputUserName, inputPassword)}>
+                <Button variant='primary' onClick={() => createUser()}>
                 Create
                 </Button>
             </form>
-            <MessageDialog message={displayError} onHide={() => setStatusMessage(null)} />
+            {statusMessage && <div className="alert alert-danger">{statusMessage}</div>}
         </>
         
     )
