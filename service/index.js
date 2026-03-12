@@ -1,4 +1,11 @@
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
+const express = require('express');
+const uuid = require('uuid');
+const app = express();
 
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
+app.use(express.static('public'));
 
 const http = require('http');
 const server = http.createServer(function (req, res) {
@@ -10,6 +17,3 @@ const server = http.createServer(function (req, res) {
 server.listen(8080, () => {
   console.log(`Web service listening on port 8080`);
 });
-
-// const port = process.argv.length > 2 ? process.argv[2] : 4000;
-// app.use(express.static('public'));
