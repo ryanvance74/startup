@@ -186,3 +186,15 @@ apiRouter.post('/make-rating', verifyAuth, (req, res) => {
     res_obj.ratings = db[userName].ratings
     res.status(status).send(res_obj);
 });
+
+apiRouter.delete('/ratings', verifyAuth, (req, res) => {
+    let status = 200
+    let res_obj = {}
+    const userName = req.userName
+    status = 200
+    db[userName] ??= {}
+    db[userName].ratings = {}
+    res_obj.message = "Reset ratings."
+    res_obj.ratings = {}
+    res.status(status).send(res_obj);
+});
