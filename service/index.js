@@ -69,6 +69,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
 const verifyAuth = async (req, res, next) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
+    req.userName = user.email;
     next();
   } else {
     res.status(401).send({ msg: 'Unauthorized' });
@@ -106,7 +107,7 @@ function setAuthCookie(res, authToken) {
 apiRouter.get('/friends', verifyAuth, (req, res) => {
   const userName = req.userName
   let res_obj = {}
-  let status = 0
+  let status = 500
   if (!userName) {
     status = 400
     res_obj.message = "Must specify user name."
@@ -122,3 +123,39 @@ apiRouter.get('/friends', verifyAuth, (req, res) => {
   }
   res.status(status).send(res_obj);
 });
+
+apiRouter.post('/make-friend', verifyAuth, (req, res) => {
+  friends = updateFriends(req.body);
+  res.send(friends);
+});
+
+
+const updateFriends = (req, res) => {
+    const userName = req.userName;
+    const requestedFriend = req.requestedFriend
+    let status = 500
+    let res_obj = {}
+    if (!userName) {
+        status = 400
+        res_obj.message = "Must specify user name."
+        res_obj.friends = null
+    } else if (!(userName in db)) {
+        db[userName] = {}
+        db[userName].friends = new Set();
+    }
+
+    if (!(requestedFriend in db)) {
+        status = 400
+        res_obj.message = "Requested friend does not exist."
+        res_obj.friends = db[userName].friends
+    } else if (db[userName].friends.has(requestedFriend)) {
+        status = 400
+        res_obj.message = `Already friends with ${requestedFriend}`
+        res_obj.friends = db[userName].friends
+    } else {
+        db[userName].friends.add(requestedFriend)
+        res_obj.message = `Added ${requestedFriend} as a friend!`
+        res_obj.friends = [...db[userName].friends]
+    }
+    res.status(status).send(res_obj);
+}
