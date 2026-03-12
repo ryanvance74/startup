@@ -4,7 +4,7 @@ import './showings.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
-const API_KEY = BMdcxMfnXQJYhVAo8nxMnNNb0G1ZOrlv;
+const API_KEY = 'BMdcxMfnXQJYhVAo8nxMnNNb0G1ZOrlv';
 export function Showings() {
     const [musicals, setMusicals] = useState([]);
     const [loadingMessage, setLoadingMessage] = useState(false);
@@ -21,9 +21,9 @@ export function Showings() {
             const body = await res.json();
             const events = body._embedded?.events || []
             const processed = events.map((event) => ({
-                name: event.name,
-                location: event._embedded.venues[0].name,
-                date: event.dates.start.dateTime
+                name: event?.name || "None",
+                location: event?._embedded?.venues[0]?.name || "None",
+                date: event?.dates?.start?.dateTime || "None"
             }))
             setMusicals(processed)
         } catch (err) {
@@ -45,8 +45,8 @@ export function Showings() {
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Showings Today</th>
-                        <th>Price</th>
+                        <th>Location</th>
+                        <th>Date and Time</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,8 +54,8 @@ export function Showings() {
                         <tr key={i}>
                             <td>{i + 1}</td> 
                             <td>{musical.name}</td>
-                            <td>{musical.showings_today}</td>
-                            <td>{musical.price}</td>
+                            <td>{musical.location}</td>
+                            <td>{musical.date}</td>
                         </tr>
                     ))}
                     </tbody>
