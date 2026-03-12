@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Friends() {
     const [input, setInput] = useState('');
-    const [pendingRequests, setPendingRequests] = useState([]);
     const [friends, setFriends] = useState([]);
     const [statusMessage, setStatusMessage] = useState('');
 
@@ -36,35 +35,22 @@ export function Friends() {
             'Content-type': 'application/json; charset=UTF-8',
         },
         })
-        const tempName = input;
+        if (res === 200) {
+            setFriends(await res.json())
+            setStatusMessage('Successfully followed friend!')
+        } else {
+            setStatusMessage(`Error while attempting to follow friend: ${await res.json()}`)
+        }
         setInput('');
-        setPendingRequests((prev) => [...prev, tempName]);
-        setTimeout(() =>  {
-            setPendingRequests((prev) => prev.filter((name) => name !== tempName));
-            setFriends((prevFriends) => {
-                const newFriendObj = {
-                    name: tempName,
-                    musicalsRated: Math.floor(Math.random()*30),
-                    since: new Date().toLocaleDateString()
-                };
-                const newFriends = [...prevFriends, newFriendObj];
-                setStatusMessage('Successfully added friend!')
-                setTimeout(() => {
-                    setStatusMessage('');
-                }, 3000)
-                localStorage.setItem('saved_friends', JSON.stringify(newFriends));
-                return newFriends;
-            })
-        }, 5000)
     }
 
-    const resetFriends = () => {
-        setFriends([])
-        localStorage.setItem('saved_friends', JSON.stringify([]))
-        setStatusMessage('Reset friends list.')
-                setTimeout(() => {
-                    setStatusMessage('');
-                }, 3000)
+    const resetFriends = async () => {
+        const res = await fetch('api/friends', {method: 'delete'})
+        if (res === 200) {
+            setStatusMessage('Reset friends list.')
+        } else {
+            setStatusMessage(`Failed to reset friends: ${await res.json()}`)
+        }
     }
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
@@ -116,24 +102,6 @@ export function Friends() {
             {statusMessage && <div className="alert">
                 {statusMessage}
                 </div>}
-            <div className="col-md-6">
-                <h4 className="text-center" id="table-title"> Pending Follows </h4>
-                <table className="table table-success table-striped-columns">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {pendingRequests.map((name, i) => (
-                        <tr key={i}> 
-                            <td>{name}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            </div>
-                
         </div>
         
     </main>
