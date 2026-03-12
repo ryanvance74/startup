@@ -17,6 +17,31 @@ function Unauthenticated({ userName, onLogin }) {
     const [inputUserName, setInputUserName] = useState('');
     const [inputPassword, setInputPassword] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
+
+
+    async function loginUser() {
+        loginOrCreate(`/api/auth/login`);
+    }
+
+    async function createUser() {
+        loginOrCreate(`/api/auth/create`);
+    }
+    async function loginOrCreate(endpoint) {
+        const response = await fetch(endpoint, {
+        method: 'post',
+        body: JSON.stringify({ email: userName, password: password }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+        });
+        if (response?.status === 200) {
+            localStorage.setItem('userName', userName);
+            props.onLogin(userName);
+        } else {
+            const body = await response.json();
+            setDisplayError(`⚠ Error: ${body.msg}`);
+        }
+    }
     const processLogin = (userName, password) => {
         const userPassword = localStorage.getItem(userName)
         if (userPassword && password === userPassword) {
@@ -41,7 +66,7 @@ function Unauthenticated({ userName, onLogin }) {
         onLogin(userName)
     }
 
-    
+
     return (
         <form onSubmit={(e) => e.preventDefault()}>
                 <div className="input-group mb-3">
