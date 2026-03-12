@@ -35,6 +35,7 @@ export function Rank() {
             fetch('/api/ratings')
                 .then(res => res.json())
                 .then(body  => {
+                    console.log(body)
                     setAllRatings(body.ratings)
                 })
                 .catch(() => setStatusMessage('Failed to load ratings.'))
@@ -77,7 +78,7 @@ export function Rank() {
         })
         if (res.status === 200) {
             const body = await res.json();
-            setAllRatings(body.updatedRatings);
+            setAllRatings(body.ratings);
         } else {
             const body = await res.json();
             setStatusMessage(`Failed to submit rating: ${body.message}`)

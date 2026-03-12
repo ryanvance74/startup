@@ -30,7 +30,7 @@ async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
   db[email] = {}
   db[email].friends = new Set()
-  db[email].ratings = {}
+  db[email].ratings = []
   const user = {
     email: email,
     password: passwordHash,
@@ -162,11 +162,14 @@ apiRouter.get('/ratings', verifyAuth, (req, res) => {
 
 apiRouter.post('/make-rating', verifyAuth, (req, res) => {
     const userName = req.userName;
-    const ratingObj = req.body.ratingObj
+    const ratingObj = req.body.rating
     let status = 200
     let res_obj = {}
     res_obj.message = 'Added rating'
-    db[userName].ratings[ratingObj.name] = ratingObj.rating
+    db[userName].ratings.push({
+        name: ratingObj.name,
+        rating: ratingObj.rating
+    })
     res_obj.ratings = db[userName].ratings
     res.status(status).send(res_obj);
 });
@@ -176,9 +179,9 @@ apiRouter.delete('/ratings', verifyAuth, (req, res) => {
     let res_obj = {}
     const userName = req.userName
     status = 200
-    db[userName].ratings = {}
+    db[userName].ratings = []
     res_obj.message = "Reset ratings."
-    res_obj.ratings = {}
+    res_obj.ratings = []
     res.status(status).send(res_obj);
 });
 

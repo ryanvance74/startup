@@ -35,7 +35,6 @@ function Unauthenticated({ userName, onLogin }) {
         },
         });
         if (response?.status === 200) {
-            localStorage.setItem('userName', inputUserName);
             onLogin(inputUserName);
         } else {
             const body = await response.json();

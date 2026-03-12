@@ -16,14 +16,16 @@ export default function App() {
     const [authState, setAuthState] = useState(AuthState.Unknown);
     const [userName, setUserName] = useState('');
     useEffect(() => {
-        const possibleUser = localStorage.getItem('username')
-        if (possibleUser) {
-            setUserName(possibleUser)
-            setAuthState(AuthState.Authenticated)
-        } else {
-            setAuthState(AuthState.Unauthenticated)
-        }
+        setAuthState(AuthState.Unauthenticated)
     }, [])
+    // useEffect(() => {
+    //     if (possibleUser) {
+    //         setUserName(possibleUser)
+    //         setAuthState(AuthState.Authenticated)
+    //     } else {
+    //         setAuthState(AuthState.Unauthenticated)
+    //     }
+    // }, [])
   return (
     <BrowserRouter>
         <div className="body">
