@@ -129,6 +129,24 @@ apiRouter.post('/make-friend', verifyAuth, (req, res) => {
   res.send(friends);
 });
 
+apiRouter.delete('/friends', verifyAuth, (req, res) => {
+    let status = 500
+    let res_obj = {}
+    const userName = req.userName
+    if (!userName) {
+        status = 400
+        res_obj.message = "Must specify user name."
+        res_obj.friends = null
+    } else {
+        status = 200
+        db[userName] ??= {}
+        db[userName].friends = new Set()
+        res_obj.message = "Reset friends."
+        res_obj.friends = []
+    }
+    res.status(status).send(res_obj);
+});
+
 
 const updateFriends = (req, res) => {
     const userName = req.userName;
@@ -159,3 +177,5 @@ const updateFriends = (req, res) => {
     }
     res.status(status).send(res_obj);
 }
+
+
