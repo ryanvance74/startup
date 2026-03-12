@@ -163,15 +163,29 @@ apiRouter.get('/ratings', verifyAuth, (req, res) => {
 apiRouter.post('/make-rating', verifyAuth, (req, res) => {
     const userName = req.userName;
     const ratingObj = req.body.rating
-    let status = 200
-    let res_obj = {}
-    res_obj.message = 'Added rating'
-    db[userName].ratings.push({
-        name: ratingObj.name,
-        rating: ratingObj.rating
-    })
-    res_obj.ratings = db[userName].ratings
-    res.status(status).send(res_obj);
+    const ratings = db[userName].ratings
+    const dupIdx = ratings.findIndex(r => 
+        r.name === ratingObj.name
+    )
+    if (!ratingObj || !ratingObj.name) {
+        return res.status(400).send({message: 'Musical name is required.'})
+    }
+    if (dupIdx !== -1) {
+        ratings[dupIdx].rating = ratingObj.rating
+        res.status(200).send({
+            message: `Updated rating for ${ratingObj.name}`,
+            ratings: ratings
+        })
+    } else {
+        db[userName].ratings.push({
+            name: ratingObj.name,
+            rating: ratingObj.rating
+        })
+        res.status(200).send({
+            message: `Created rating for ${ratingObj.name}`,
+            ratings: ratings
+        });
+    }
 });
 
 apiRouter.delete('/ratings', verifyAuth, (req, res) => {
