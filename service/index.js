@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const app = express();
 
 const db = {}
+const users = []
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const authCookieName = 'token';
 app.use(express.json());
@@ -27,7 +28,9 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
-
+  db[email] = {}
+  db[email].friends = new Set()
+  db[email].ratings = {}
   const user = {
     email: email,
     password: passwordHash,
@@ -84,17 +87,6 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-const http = require('http');
-const server = http.createServer(function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.write(`<h1>Hello Node.js! [${req.method}] ${req.url}</h1>`);
-  res.end();
-});
-
-server.listen(8080, () => {
-  console.log(`Web service listening on port 8080`);
-});
-
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
     maxAge: 1000 * 60 * 60 * 24 * 365,
@@ -109,7 +101,6 @@ apiRouter.get('/friends', verifyAuth, (req, res) => {
     let res_obj = {}
     let status = 500
 
-    db[userName] ??= {'friends' : new Set()}
     status = 200
     res_obj.message = ""
     res_obj.friends = [...db[userName].friends]
@@ -117,28 +108,9 @@ apiRouter.get('/friends', verifyAuth, (req, res) => {
     res.status(status).send(res_obj);
 });
 
-apiRouter.post('/make-friend', verifyAuth, (req, res) => {
-  friends = updateFriends(req.body);
-  res.send(friends);
-});
-
-apiRouter.delete('/friends', verifyAuth, (req, res) => {
-    let status = 500
-    let res_obj = {}
-    const userName = req.userName
-    status = 200
-    db[userName] ??= {}
-    db[userName].friends = new Set()
-    res_obj.message = "Reset friends."
-    res_obj.friends = []
-    
-    res.status(status).send(res_obj);
-});
-
-
 const updateFriends = (req, res) => {
     const userName = req.userName;
-    const requestedFriend = req.requestedFriend
+    const requestedFriend = req.body.requestedFriend
     let status = 500
     let res_obj = {}
     if (!(userName in db)) {
@@ -149,11 +121,11 @@ const updateFriends = (req, res) => {
     if (!(requestedFriend in db)) {
         status = 400
         res_obj.message = "Requested friend does not exist."
-        res_obj.friends = db[userName].friends
+        res_obj.friends = [...db[userName].friends]
     } else if (db[userName].friends.has(requestedFriend)) {
         status = 400
         res_obj.message = `Already friends with ${requestedFriend}`
-        res_obj.friends = db[userName].friends
+        res_obj.friends = [...db[userName].friends]
     } else {
         db[userName].friends.add(requestedFriend)
         res_obj.message = `Added ${requestedFriend} as a friend!`
@@ -162,12 +134,25 @@ const updateFriends = (req, res) => {
     res.status(status).send(res_obj);
 }
 
+apiRouter.post('/make-friend', verifyAuth, updateFriends);
+
+apiRouter.delete('/friends', verifyAuth, (req, res) => {
+    let status = 500
+    let res_obj = {}
+    const userName = req.userName
+    status = 200
+    db[userName].friends = new Set()
+    res_obj.message = "Reset friends."
+    res_obj.friends = []
+    
+    res.status(status).send(res_obj);
+});
+
 apiRouter.get('/ratings', verifyAuth, (req, res) => {
     const userName = req.userName
     let res_obj = {}
     let status = 500
 
-    db[userName] ??= {'ratings' : {}}
     status = 200
     res_obj.message = ""
     res_obj.ratings = db[userName].ratings
@@ -177,11 +162,10 @@ apiRouter.get('/ratings', verifyAuth, (req, res) => {
 
 apiRouter.post('/make-rating', verifyAuth, (req, res) => {
     const userName = req.userName;
-    const ratingObj = req.ratingObj
+    const ratingObj = req.body.ratingObj
     let status = 200
     let res_obj = {}
     res_obj.message = 'Added rating'
-    db[userName].ratings ??= {}
     db[userName].ratings[ratingObj.name] = ratingObj.rating
     res_obj.ratings = db[userName].ratings
     res.status(status).send(res_obj);
@@ -192,9 +176,12 @@ apiRouter.delete('/ratings', verifyAuth, (req, res) => {
     let res_obj = {}
     const userName = req.userName
     status = 200
-    db[userName] ??= {}
     db[userName].ratings = {}
     res_obj.message = "Reset ratings."
     res_obj.ratings = {}
     res.status(status).send(res_obj);
+});
+
+app.listen(port, () => {
+  console.log(`Web service listening on port ${port}`);
 });
