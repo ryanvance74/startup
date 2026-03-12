@@ -39,36 +39,13 @@ function Unauthenticated({ userName, onLogin }) {
             props.onLogin(userName);
         } else {
             const body = await response.json();
-            setDisplayError(`⚠ Error: ${body.msg}`);
+            setStatusMessage(`⚠ Error: ${body.msg}`);
         }
     }
-    const processLogin = (userName, password) => {
-        const userPassword = localStorage.getItem(userName)
-        if (userPassword && password === userPassword) {
-            onLogin(userName)
-        } else {
-            setStatusMessage('Invalid username and password combination. Please try logging in again.')
-            setTimeout(() => {
-                setStatusMessage('');
-            }, 3000)
-        }
-    }
-
-    const processCreate = (userName, password) => {
-        localStorage.setItem(userName, password)
-        if (!userName || !password) {
-            setStatusMessage('Userame and password must be non-empty. Please try again.')
-            setTimeout(() => {
-                setStatusMessage('');
-            }, 3000)
-            return;
-        }
-        onLogin(userName)
-    }
-
 
     return (
-        <form onSubmit={(e) => e.preventDefault()}>
+        <>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <div className="input-group mb-3">
                 <span className="input-group-text">@</span>
                 <input className="form-control" type="text" placeholder="your_username" onChange={(e) => setInputUserName(e.target.value)}/>
@@ -77,16 +54,16 @@ function Unauthenticated({ userName, onLogin }) {
                 <span className="input-group-text">🔒</span>
                 <input className="form-control" type="password" placeholder="password" onChange={(e) => setInputPassword(e.target.value)}/>
                 </div>
-                {statusMessage && <div className="alert alert-danger">
-                {statusMessage}
-                </div>}
                 <Button variant='primary' onClick={() => processLogin(inputUserName, inputPassword)}>
                 Login
                 </Button>
                 <Button variant='primary' onClick={() => processCreate(inputUserName, inputPassword)}>
                 Create
                 </Button>
-        </form>
+            </form>
+            <MessageDialog message={displayError} onHide={() => setStatusMessage(null)} />
+        </>
+        
     )
 
 }
