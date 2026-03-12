@@ -3,6 +3,8 @@ import {useState, useEffect} from 'react';
 import './showings.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+
+const API_KEY = BMdcxMfnXQJYhVAo8nxMnNNb0G1ZOrlv;
 export function Showings() {
     const [musicals, setMusicals] = useState([]);
     const [loadingMessage, setLoadingMessage] = useState(false);
@@ -12,8 +14,17 @@ export function Showings() {
         {id: 3, name: 'Wicked', showings_today: 4, price: 180},
         {id: 4, name: 'Phantom of the Opera', showings_today: 0, price: 'N/A'}
     ]
-    const fetchRequest = () => {
+    const fetchRequest = async () => {
         setLoadingMessage(true);
+        const url = new URL(`https://app.ticketmaster.com/discovery/v2/events.json`)
+        url.searchParams.set('classificationName', 'theatre');
+        url.searchParams.set('city', 'New York');
+        url.searchParams.set('stateCode', 'NY');
+        url.searchParams.set('apikey', API_KEY);
+        
+        const res = await fetch(url.toString());
+        const body = await res.json();
+        
         setTimeout(() => {
             const idx = Math.floor(Math.random() * 3)
             const new_val = Math.floor(Math.random() * 450 + 70)
