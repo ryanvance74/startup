@@ -176,32 +176,13 @@ apiRouter.get('/ratings', verifyAuth, (req, res) => {
 });
 
 apiRouter.post('/make-rating', verifyAuth, (req, res) => {
-  ratings = updateRatings(req.body);
-  res.send(friends);
-});
-
-const updateRatings = (req, res) => {
     const userName = req.userName;
-    const requestedRating = req.requestedRating
-    let status = 500
+    const ratingObj = req.ratingObj
+    let status = 200
     let res_obj = {}
-    if (!(userName in db)) {
-        db[userName] = {}
-        db[userName].friends = new Set();
-    }
-
-    if (!(requestedFriend in db)) {
-        status = 400
-        res_obj.message = "Requested friend does not exist."
-        res_obj.friends = db[userName].friends
-    } else if (db[userName].friends.has(requestedFriend)) {
-        status = 400
-        res_obj.message = `Already friends with ${requestedFriend}`
-        res_obj.friends = db[userName].friends
-    } else {
-        db[userName].friends.add(requestedFriend)
-        res_obj.message = `Added ${requestedFriend} as a friend!`
-        res_obj.friends = [...db[userName].friends]
-    }
+    res_obj.message = 'Added rating'
+    db[userName].ratings ??= {}
+    db[userName].ratings[ratingObj.name] = ratingObj.rating
+    res_obj.ratings = db[userName].ratings
     res.status(status).send(res_obj);
-}
+});
