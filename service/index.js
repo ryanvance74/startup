@@ -4,6 +4,7 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 
+const db = {}
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const authCookieName = 'token';
 app.use(express.json());
@@ -93,7 +94,6 @@ server.listen(8080, () => {
   console.log(`Web service listening on port 8080`);
 });
 
-
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
     maxAge: 1000 * 60 * 60 * 24 * 365,
@@ -102,3 +102,23 @@ function setAuthCookie(res, authToken) {
     sameSite: 'strict',
   });
 }
+
+apiRouter.get('/friends', verifyAuth, (req, res) => {
+  const userName = req.userName
+  let res_obj = {}
+  let status = 0
+  if (!userName) {
+    status = 400
+    res_obj.message = "Must specify user name."
+    res_obj.friends = null
+  } else if (!(userName in db)) {
+    status = 400
+    res_obj.message = "UserName has not in database yet."
+    res_obj.friends = null
+  } else {
+    status = 200
+    res_obj.message = ""
+    res_obj.friends = db[userName].friends
+  }
+  res.status(status).send(res_obj);
+});
