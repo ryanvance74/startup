@@ -12,8 +12,8 @@ export function Friends() {
     useEffect(() => {
         fetch('/api/friends')
             .then(res => res.json())
-            .then(data  => {
-                setFriends(data)
+            .then(body  => {
+                setFriends(body.friends)
             })
             .catch(() => setStatusMessage('Failed to load friends.'))
     }, [])
@@ -28,29 +28,39 @@ export function Friends() {
             return
         }
         setStatusMessage('Sending request...')
-        const res = await fetch('api/make-friend', {
+        const res = await fetch('/api/make-friend', {
             method: 'post', 
             body: JSON.stringify({friendName: input}),
             headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
         })
-        if (res === 200) {
-            setFriends(await res.json())
+        const body = await res.json()
+        if (res.status === 200) {
+            setFriends(body.friends)
             setStatusMessage('Successfully followed friend!')
+            setTimeout(() => {
+                setStatusMessage('');
+            }, 3000)
         } else {
-            setStatusMessage(`Error while attempting to follow friend: ${await res.json()}`)
+            setStatusMessage(`Error while attempting to follow friend: ${body.message}`)
+            setTimeout(() => {
+                setStatusMessage('');
+            }, 3000)
         }
         setInput('');
     }
 
     const resetFriends = async () => {
-        const res = await fetch('api/friends', {method: 'delete'})
-        if (res === 200) {
+        const res = await fetch('/api/friends', {method: 'delete'})
+        const body = await res.json()
+        if (res.status === 200) {
             setStatusMessage('Reset friends list.')
+            setFriends([])
         } else {
-            setStatusMessage(`Failed to reset friends: ${await res.json()}`)
+            setStatusMessage(`Failed to reset friends: ${body.message}`)
         }
+
     }
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
