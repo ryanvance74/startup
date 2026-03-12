@@ -105,23 +105,16 @@ function setAuthCookie(res, authToken) {
 }
 
 apiRouter.get('/friends', verifyAuth, (req, res) => {
-  const userName = req.userName
-  let res_obj = {}
-  let status = 500
-  if (!userName) {
-    status = 400
-    res_obj.message = "Must specify user name."
-    res_obj.friends = null
-  } else if (!(userName in db)) {
-    status = 400
-    res_obj.message = "UserName has not in database yet."
-    res_obj.friends = null
-  } else {
+    const userName = req.userName
+    let res_obj = {}
+    let status = 500
+
+    db[userName] ??= {'friends' : new Set()}
     status = 200
     res_obj.message = ""
-    res_obj.friends = db[userName].friends
-  }
-  res.status(status).send(res_obj);
+    res_obj.friends = [...db[userName].friends]
+
+    res.status(status).send(res_obj);
 });
 
 apiRouter.post('/make-friend', verifyAuth, (req, res) => {
@@ -133,17 +126,12 @@ apiRouter.delete('/friends', verifyAuth, (req, res) => {
     let status = 500
     let res_obj = {}
     const userName = req.userName
-    if (!userName) {
-        status = 400
-        res_obj.message = "Must specify user name."
-        res_obj.friends = null
-    } else {
-        status = 200
-        db[userName] ??= {}
-        db[userName].friends = new Set()
-        res_obj.message = "Reset friends."
-        res_obj.friends = []
-    }
+    status = 200
+    db[userName] ??= {}
+    db[userName].friends = new Set()
+    res_obj.message = "Reset friends."
+    res_obj.friends = []
+    
     res.status(status).send(res_obj);
 });
 
@@ -153,11 +141,7 @@ const updateFriends = (req, res) => {
     const requestedFriend = req.requestedFriend
     let status = 500
     let res_obj = {}
-    if (!userName) {
-        status = 400
-        res_obj.message = "Must specify user name."
-        res_obj.friends = null
-    } else if (!(userName in db)) {
+    if (!(userName in db)) {
         db[userName] = {}
         db[userName].friends = new Set();
     }
@@ -178,4 +162,46 @@ const updateFriends = (req, res) => {
     res.status(status).send(res_obj);
 }
 
+apiRouter.get('/ratings', verifyAuth, (req, res) => {
+    const userName = req.userName
+    let res_obj = {}
+    let status = 500
 
+    db[userName] ??= {'ratings' : {}}
+    status = 200
+    res_obj.message = ""
+    res_obj.ratings = db[userName].ratings
+
+  res.status(status).send(res_obj);
+});
+
+apiRouter.post('/make-rating', verifyAuth, (req, res) => {
+  ratings = updateRatings(req.body);
+  res.send(friends);
+});
+
+const updateRatings = (req, res) => {
+    const userName = req.userName;
+    const requestedRating = req.requestedRating
+    let status = 500
+    let res_obj = {}
+    if (!(userName in db)) {
+        db[userName] = {}
+        db[userName].friends = new Set();
+    }
+
+    if (!(requestedFriend in db)) {
+        status = 400
+        res_obj.message = "Requested friend does not exist."
+        res_obj.friends = db[userName].friends
+    } else if (db[userName].friends.has(requestedFriend)) {
+        status = 400
+        res_obj.message = `Already friends with ${requestedFriend}`
+        res_obj.friends = db[userName].friends
+    } else {
+        db[userName].friends.add(requestedFriend)
+        res_obj.message = `Added ${requestedFriend} as a friend!`
+        res_obj.friends = [...db[userName].friends]
+    }
+    res.status(status).send(res_obj);
+}
