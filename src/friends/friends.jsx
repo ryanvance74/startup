@@ -20,7 +20,7 @@ export function Friends() {
 
     const sendRequest = async () => {
         if (!input.trim()) return;
-        if (friends.some((friend) => friend.name === input)) {
+        if (friends.includes(input)) {
             setStatusMessage('You are already friends with this person.');
             setTimeout(() => {
                 setStatusMessage('');
@@ -30,7 +30,7 @@ export function Friends() {
         setStatusMessage('Sending request...')
         const res = await fetch('/api/make-friend', {
             method: 'post', 
-            body: JSON.stringify({friendName: input}),
+            body: JSON.stringify({requestedFriend: input}),
             headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
@@ -92,8 +92,6 @@ export function Friends() {
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Musicals Rated</th>
-                        <th>Followed Since</th>
                     </tr>
                     </thead>
 
@@ -101,9 +99,7 @@ export function Friends() {
                     {friends.map((friend, i) => (
                         <tr key={i}>
                             <td>{i + 1}</td> 
-                            <td>{friend.name}</td>
-                            <td>{friend.musicalsRated}</td>
-                            <td>{friend.since}</td>
+                            <td>{friend}</td>
                         </tr>
                     ))}
                     </tbody>

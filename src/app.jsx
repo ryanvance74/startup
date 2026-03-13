@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect} from 'react';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login.jsx';
 import { Friends } from './friends/friends.jsx';
 import { Rank } from './rank/rank.jsx';
@@ -12,6 +12,12 @@ import Button from 'react-bootstrap/Button';
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import {AuthState} from './auth_state.jsx'
 
+function AuthenticatedRoute({ authState, children}) {
+    if (authState === AuthState.Authenticated) {
+        return children
+    }
+    return <Navigate to="/" replace/>;
+}
 export default function App() {
     const [authState, setAuthState] = useState(AuthState.Unknown);
     const [userName, setUserName] = useState('');
@@ -62,9 +68,21 @@ export default function App() {
                 }}
             />} 
             exact />
-            <Route path='/friends' element={<Friends />} />
-            <Route path='/rank' element={<Rank />} />
-            <Route path='/showings' element={<Showings />} />
+            <Route path='/friends' element={
+                <AuthenticatedRoute authState={authState}>
+                    <Friends />
+                </AuthenticatedRoute>
+                } />
+            <Route path='/rank' element={
+                <AuthenticatedRoute authState={authState}>
+                    <Rank />
+                </AuthenticatedRoute>
+            } />
+            <Route path='/showings' element={
+                <AuthenticatedRoute authState={authState}>
+                    <Showings />
+                </AuthenticatedRoute>
+            } />
             <Route path='/about' element={<About />} />
             <Route path='*' element={<NotFound />} />
             </Routes>

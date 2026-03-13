@@ -111,14 +111,17 @@ apiRouter.get('/friends', verifyAuth, (req, res) => {
 const updateFriends = (req, res) => {
     const userName = req.userName;
     const requestedFriend = req.body.requestedFriend
-    let status = 500
+    let status = 200
     let res_obj = {}
     if (!(userName in db)) {
         db[userName] = {}
         db[userName].friends = new Set();
     }
-
-    if (!(requestedFriend in db)) {
+    if (userName === requestedFriend) {
+        status = 400
+        res_obj.message = "Cannot add yourself as a friend."
+        res_obj.friends = [...db[userName].friends]
+    } else if (!(requestedFriend in db)) {
         status = 400
         res_obj.message = "Requested friend does not exist."
         res_obj.friends = [...db[userName].friends]

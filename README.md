@@ -95,12 +95,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - I used Node.js and Express HTTP service to deliver my application through the web browser.
+- [x] **Static middleware for frontend** - I used static middleware for the frontend.
+- [x] **Calls to third party endpoints** - I called the TicketMaster 3rd party API to get information on the latest Broadway shows and displayed it on my showings page.
+- [x] **Backend service endpoints** - I implemented all of the backend service endpoints to serve the front end requests.
+- [x] **Frontend calls service endpoints** - I now have the frontend call the backend service endpoints.
+- [x] **Supports registration, login, logout, and restricted endpoint** - Registration, login, logout are all supported and user cannot access restricted endpoints until they are authenticated.
 
 ## 🚀 DB deliverable
 
