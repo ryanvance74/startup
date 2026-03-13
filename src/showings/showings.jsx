@@ -65,7 +65,14 @@ export function Showings() {
                             <td>{i + 1}</td> 
                             <td>{musical.name}</td>
                             <td>{musical.location}</td>
-                            <td>{musical.date}</td>
+                            <td>
+                                {musical.date !== "None" ? new Date(musical.date).toLocaleString('en-US', {
+                                    month: 'short', 
+                                    day: 'numeric',
+                                    hour: 'numeric',
+                                    timeZone: 'America/New_York'
+                                }) : "None"}
+                            </td>
                         </tr>
                     ))}
                     </tbody>

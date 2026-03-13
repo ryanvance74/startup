@@ -83,7 +83,7 @@ export default function App() {
                     <Showings />
                 </AuthenticatedRoute>
             } />
-            <Route path='/about' element={<About />} />
+            <Route path='/about' element={<About userName={userName}/>} />
             <Route path='*' element={<NotFound />} />
             </Routes>
 

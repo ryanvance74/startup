@@ -3,11 +3,7 @@ import './about.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect} from 'react';
 
-export function About() {
-    const [userName, setUserName] = useState('')
-    useEffect(() => {
-        setUserName(localStorage.getItem('username'))
-    })
+export function About({ userName }) {
   return (
     <main className="container-fluid flex-grow-1 d-flex flex-column justify-content-between">
         <div className="row"> 
