@@ -133,14 +133,12 @@ const updateFriends = async (req, res) => {
 
 apiRouter.post('/make-friend', verifyAuth, updateFriends);
 
-apiRouter.delete('/friends', verifyAuth, (req, res) => {
-    let status = 500
+apiRouter.delete('/friends', verifyAuth, async (req, res) => {
     let res_obj = {}
     const userName = req.userName
-    status = 200
-    db[userName].friends = new Set()
+    const status = 200
     res_obj.message = "Reset friends."
-    res_obj.friends = []
+    res_obj.friends = await DB.getFriends(userName)
     
     res.status(status).send(res_obj);
 });
