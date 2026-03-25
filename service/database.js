@@ -56,13 +56,12 @@ async function resetRatings(user) {
     )
 }
 
-async function getRating(user, musical) {
-  return await ratingsCollection.findOne(
+async function getRatings(user) {
+  return await ratingsCollection.find(
     { 
-        user: user,
-        musical: musical
+        user: user
     }
-  );
+  ).toArray();
 }
 
 module.exports = {

@@ -160,7 +160,7 @@ apiRouter.get('/ratings', verifyAuth, (req, res) => {
 
     status = 200
     res_obj.message = ""
-    res_obj.ratings = db[userName].ratings
+    res_obj.ratings = await 
 
   res.status(status).send(res_obj);
 });
