@@ -5,7 +5,6 @@ const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
 
-const users = []
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const authCookieName = 'token';
 app.use(express.json());
@@ -98,14 +97,14 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-apiRouter.get('/friends', verifyAuth, (req, res) => {
+apiRouter.get('/friends', verifyAuth, async (req, res) => {
     const userName = req.userName
     let res_obj = {}
     let status = 500
 
     status = 200
     res_obj.message = ""
-    res_obj.friends = [...db[userName].friends]
+    res_obj.friends = await getFriends(userName)
 
     res.status(status).send(res_obj);
 });
@@ -153,54 +152,40 @@ apiRouter.delete('/friends', verifyAuth, (req, res) => {
     res.status(status).send(res_obj);
 });
 
-apiRouter.get('/ratings', verifyAuth, (req, res) => {
+apiRouter.get('/ratings', verifyAuth, async (req, res) => {
     const userName = req.userName
     let res_obj = {}
     let status = 500
 
     status = 200
-    res_obj.message = ""
-    res_obj.ratings = await 
+    res_obj.message = "";
+    res_obj.ratings = await DB.getRatings(userName);
 
   res.status(status).send(res_obj);
 });
 
-apiRouter.post('/make-rating', verifyAuth, (req, res) => {
+apiRouter.post('/make-rating', verifyAuth, async (req, res) => {
     const userName = req.userName;
     const ratingObj = req.body.rating
-    const ratings = db[userName].ratings
-    const dupIdx = ratings.findIndex(r => 
-        r.name === ratingObj.name
-    )
+
     if (!ratingObj || !ratingObj.name) {
         return res.status(400).send({message: 'Musical name is required.'})
     }
-    if (dupIdx !== -1) {
-        ratings[dupIdx].rating = ratingObj.rating
-        res.status(200).send({
-            message: `Updated rating for ${ratingObj.name}`,
-            ratings: ratings
-        })
-    } else {
-        db[userName].ratings.push({
-            name: ratingObj.name,
-            rating: ratingObj.rating
-        })
-        res.status(200).send({
+    await DB.addRating(userName, ratingObj)
+    const ratings = await DB.getRatings(userNmae)
+    res.status(200).send({
             message: `Created rating for ${ratingObj.name}`,
             ratings: ratings
         });
-    }
 });
 
-apiRouter.delete('/ratings', verifyAuth, (req, res) => {
+apiRouter.delete('/ratings', verifyAuth, async (req, res) => {
     let status = 200
     let res_obj = {}
     const userName = req.userName
-    status = 200
-    db[userName].ratings = []
+    await DB.resetRatings(userName)
     res_obj.message = "Reset ratings."
-    res_obj.ratings = []
+    res_obj.ratings = await DB.getRatings(userName)
     res.status(status).send(res_obj);
 });
 

@@ -6,6 +6,7 @@ const client = new MongoClient(url);
 const db = client.db('startup');
 const userCollection = db.collection('user');
 const ratingsCollection = db.collection('ratings')
+const friendsCollection = db.collection('friends')
 
 (async function testConnection() {
   try {
@@ -64,10 +65,42 @@ async function getRatings(user) {
   ).toArray();
 }
 
+async function getFriends(user) {
+    return await friendsCollection.find(
+        {
+            user: user
+        }
+    ).toArray();
+}
+
+async function addFriend(user, friend) {
+    await friendsCollection.updateOne(
+        {
+            user: user
+        },
+        {$addToSet: {friends: friend}},
+        {upsert: true}
+    )
+}
+
+async function resetFriends(user) {
+    await friendsCollection.deleteMany(
+        {
+            user: user
+        }
+    )
+}
+
 module.exports = {
   getUser,
   getUserByToken,
   addUser,
   updateUser,
   updateUserRemoveAuth,
+  addRating,
+  getRatings,
+  resetRatings,
+  getFriends,
+  addFriend,
+  resetFriends
 };
