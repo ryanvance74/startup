@@ -42,7 +42,7 @@ async function addRating(user, ratingObj) {
     await ratingsCollection.updateOne(
         {
             user: user,
-            musical: ratingObj.name
+            name: ratingObj.name
         },
         {$set: {rating: ratingObj.rating}},
         {upsert: true}
@@ -66,11 +66,12 @@ async function getRatings(user) {
 }
 
 async function getFriends(user) {
-    return await friendsCollection.find(
+    const result = await friendsCollection.findOne(
         {
             user: user
         }
-    ).toArray();
+    );
+    return result ? result.friends : []
 }
 
 async function addFriend(user, friend) {
