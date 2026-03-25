@@ -5,6 +5,7 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('startup');
 const userCollection = db.collection('user');
+const ratingsCollection = db.collection('ratings')
 
 (async function testConnection() {
   try {
@@ -34,6 +35,17 @@ async function updateUser(user) {
 
 async function updateUserRemoveAuth(user) {
   await userCollection.updateOne({ email: user.email }, { $unset: { token: 1 } });
+}
+
+async function addRating(user, ratingObj) {
+    await userCollection.updateOne(
+        {
+            user: user,
+            musical: ratingObj.name
+        },
+        {$set: {rating: ratingObj.rating}},
+        {upsert: true}
+    )
 }
 
 module.exports = {
