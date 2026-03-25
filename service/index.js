@@ -104,7 +104,7 @@ apiRouter.get('/friends', verifyAuth, async (req, res) => {
 
     status = 200
     res_obj.message = ""
-    res_obj.friends = await getFriends(userName)
+    res_obj.friends = await DB.getFriends(userName)
 
     res.status(status).send(res_obj);
 });
@@ -119,12 +119,13 @@ const updateFriends = async (req, res) => {
         status = 400
         res_obj.message = "Cannot add yourself as a friend."
         res_obj.friends = await DB.getFriends(userName)
-    } else if (!(await DB.getUser(userName))) {
+    } else if (!(await DB.getUser(requestedFriend))) {
         status = 400
         res_obj.message = "Requested friend does not exist."
         res_obj.friends = await DB.getFriends(userName)
     } else {
         status = 200
+        await DB.addFriend(userName, requestedFriend)
         res_obj.message = `Added or updated ${requestedFriend} as a friend.`
         res_obj.friends = await DB.getFriends(userName)
     } 
@@ -138,6 +139,7 @@ apiRouter.delete('/friends', verifyAuth, async (req, res) => {
     const userName = req.userName
     const status = 200
     res_obj.message = "Reset friends."
+    await DB.resetFriends(userName)
     res_obj.friends = await DB.getFriends(userName)
     
     res.status(status).send(res_obj);
@@ -163,7 +165,7 @@ apiRouter.post('/make-rating', verifyAuth, async (req, res) => {
         return res.status(400).send({message: 'Musical name is required.'})
     }
     await DB.addRating(userName, ratingObj)
-    const ratings = await DB.getRatings(userNmae)
+    const ratings = await DB.getRatings(userName)
     res.status(200).send({
             message: `Created rating for ${ratingObj.name}`,
             ratings: ratings

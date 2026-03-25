@@ -5,8 +5,8 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('startup');
 const userCollection = db.collection('user');
-const ratingsCollection = db.collection('ratings')
-const friendsCollection = db.collection('friends')
+const ratingsCollection = db.collection('ratings');
+const friendsCollection = db.collection('friends');
 
 (async function testConnection() {
   try {
