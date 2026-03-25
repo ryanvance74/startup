@@ -109,32 +109,25 @@ apiRouter.get('/friends', verifyAuth, async (req, res) => {
     res.status(status).send(res_obj);
 });
 
-const updateFriends = (req, res) => {
+const updateFriends = async (req, res) => {
     const userName = req.userName;
     const requestedFriend = req.body.requestedFriend
     let status = 200
     let res_obj = {}
-    if (!(userName in db)) {
-        db[userName] = {}
-        db[userName].friends = new Set();
-    }
+    
     if (userName === requestedFriend) {
         status = 400
         res_obj.message = "Cannot add yourself as a friend."
-        res_obj.friends = [...db[userName].friends]
-    } else if (!(requestedFriend in db)) {
+        res_obj.friends = await DB.getFriends(userName)
+    } else if (!(await DB.getUser(userName))) {
         status = 400
         res_obj.message = "Requested friend does not exist."
-        res_obj.friends = [...db[userName].friends]
-    } else if (db[userName].friends.has(requestedFriend)) {
-        status = 400
-        res_obj.message = `Already friends with ${requestedFriend}`
-        res_obj.friends = [...db[userName].friends]
+        res_obj.friends = await DB.getFriends(userName)
     } else {
-        db[userName].friends.add(requestedFriend)
-        res_obj.message = `Added ${requestedFriend} as a friend!`
-        res_obj.friends = [...db[userName].friends]
-    }
+        status = 200
+        res_obj.message = `Added or updated ${requestedFriend} as a friend.`
+        res_obj.friends = await DB.getFriends(userName)
+    } 
     res.status(status).send(res_obj);
 }
 
