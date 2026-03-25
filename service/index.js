@@ -28,15 +28,13 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
-  db[email] = {}
-  db[email].friends = new Set()
-  db[email].ratings = []
+
   const user = {
     email: email,
     password: passwordHash,
     token: uuid.v4(),
   };
-  users.push(user);
+  await DB.addUser(user);
 
   return user;
 }
