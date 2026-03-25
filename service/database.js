@@ -34,3 +34,11 @@ async function updateUser(user) {
 async function updateUserRemoveAuth(user) {
   await userCollection.updateOne({ email: user.email }, { $unset: { token: 1 } });
 }
+
+module.exports = {
+  getUser,
+  getUserByToken,
+  addUser,
+  updateUser,
+  updateUserRemoveAuth,
+};
