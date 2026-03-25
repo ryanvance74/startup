@@ -38,7 +38,7 @@ async function updateUserRemoveAuth(user) {
 }
 
 async function addRating(user, ratingObj) {
-    await userCollection.updateOne(
+    await ratingsCollection.updateOne(
         {
             user: user,
             musical: ratingObj.name
@@ -46,6 +46,23 @@ async function addRating(user, ratingObj) {
         {$set: {rating: ratingObj.rating}},
         {upsert: true}
     )
+}
+
+async function resetRatings(user) {
+    await ratingsCollection.deleteMany(
+        {
+            user: user
+        }
+    )
+}
+
+async function getRating(user, musical) {
+  return await ratingsCollection.findOne(
+    { 
+        user: user,
+        musical: musical
+    }
+  );
 }
 
 module.exports = {
