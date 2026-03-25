@@ -106,8 +106,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
+- [x] **Stores data in MongoDB** - I store the user's musical ratings and their friends list in MongoDB instead of server storage now.
+- [ ] **Stores credentials in MongoDB** - I store users' login credentials in MongoDB instead of temporarily persisting them in the server.
 
 ## 🚀 WebSocket deliverable
 
