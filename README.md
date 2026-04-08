@@ -113,8 +113,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - I made sure that the backend listens for websocket connections.
+- [x] **Frontend makes WebSocket connection** - I made the frontend initiate websocket connections.
+- [x] **Data sent over WebSocket connection** - I made so that submitRating also triggers a notification broadcast.
+- [x] **WebSocket data displayed** - I replaced the mock up of the notification display to actually display the real notifications from the websocket.
+- [x] **Application is fully functional** - The entire application is fully functional!
