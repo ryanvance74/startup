@@ -4,6 +4,7 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const authCookieName = 'token';
@@ -185,3 +186,9 @@ apiRouter.delete('/ratings', verifyAuth, async (req, res) => {
 app.listen(port, () => {
   console.log(`Web service listening on port ${port}`);
 });
+
+const httpService = app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+
+peerProxy(httpService);

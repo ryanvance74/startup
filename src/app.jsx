@@ -75,7 +75,7 @@ export default function App() {
                 } />
             <Route path='/rank' element={
                 <AuthenticatedRoute authState={authState}>
-                    <Rank />
+                    <Rank userName={userName}/>
                 </AuthenticatedRoute>
             } />
             <Route path='/showings' element={

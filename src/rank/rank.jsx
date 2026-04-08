@@ -3,22 +3,28 @@ import {useState, useEffect} from 'react';
 import './rank.css'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {RankingNotifier, RankingEvent} from './rankingNotifier';
 
-export function Rank() {
+export function Rank({ userName }) {
     const [currentRating, setCurrentRating] = useState(0);
     const [hover, setHover] = useState(0);
     const [musicalName, setMusicalName] = useState('');
     const [allRatings, setAllRatings] = useState([]);
     const [statusMessage, setStatusMessage] = useState('');
     const [notifications, setNotifications] = useState([]);
-    const activityTemplates = [
-            "James just rated Hamilton 5/5!",
-            "Leo rated Phantom of the Opera 4/5!",
-            "Gabby rated Wicked 5/5!",
-            "José rated Miss Saigon 2/5!",
-            "Leah rated Anastasia 3/5!",
-            "Isla rated Beauty and the Beast 1/5!"
-        ];
+
+    useEffect(() => {
+        RankingNotifier.addHandler(handleRankingEvent);
+
+        return () => {
+            RankingNotifier.removeHandler(handleRankingEvent);
+        };
+    }, []);
+
+    function handleRankingEvent(event) {
+        setNotifications((curr) => [event, ...curr].slice(0, 5));
+    }
+
     useEffect(() => {
         const interval = setInterval(() => {
         const nextMsg = Math.floor(Math.random() * activityTemplates.length);
@@ -56,10 +62,6 @@ export function Rank() {
             }, 3000)
             return;
         }
-        setStatusMessage(`You rated ${musicalName} ${currentRating} stars!`)
-        setTimeout(() => {
-                setStatusMessage('');
-        }, 3000)
         const newRating = {
             name: musicalName,
             rating: currentRating
@@ -79,6 +81,9 @@ export function Rank() {
         if (res.status === 200) {
             const body = await res.json();
             setAllRatings(body.ratings);
+            RankingNotifier.broadcastEvent(userName, RankingEvent.User, {
+                msg: `just ranked ${newRating.name} ${newRating.rating} stars!`
+             });
         } else {
             const body = await res.json();
             setStatusMessage(`Failed to submit rating: ${body.message}`)
@@ -104,8 +109,8 @@ export function Rank() {
             <h4 className="area-header">Notifications:</h4>
       <div className="notification-col">
         <ul> 
-            {notifications.map((notif) => (
-                <div><span className="notification">{notif}</span></div>
+            {notifications.map((notif, i) => (
+                <div key={i}><span className="notification">{typeof notif === 'string' ? notif : `${notif.from} ${notif.value.msg}`}</span></div>
             ))}
         </ul>
       </div>

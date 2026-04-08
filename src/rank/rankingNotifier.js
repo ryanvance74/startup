@@ -1,5 +1,6 @@
 const RankingEvent = {
-  System: 'system'
+  System: 'system',
+  User: 'user'
 };
 
 class EventMessage {
