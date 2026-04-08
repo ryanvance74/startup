@@ -1,3 +1,7 @@
+const RankingEvent = {
+  System: 'system'
+};
+
 class EventMessage {
   constructor(from, type, value) {
     this.from = from;
@@ -15,10 +19,10 @@ class RankingEventNotifier {
         const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
         this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
         this.socket.onopen = (event) => {
-          this.receiveEvent(new EventMessage('Musical Rankings', GameEvent.System, { msg: 'connected' }));
+          this.receiveEvent(new EventMessage('Musical Rankings', RankingEvent.System, { msg: 'connected' }));
         };
         this.socket.onclose = (event) => {
-          this.receiveEvent(new EventMessage('Musical Rankings', GameEvent.System, { msg: 'disconnected' }));
+          this.receiveEvent(new EventMessage('Musical Rankings', RankingEvent.System, { msg: 'disconnected' }));
         };
         this.socket.onmessage = async (msg) => {
           try {
@@ -27,4 +31,30 @@ class RankingEventNotifier {
           } catch {}
         };
       }
+
+    broadcastEvent(from, type, value) {
+        const event = new EventMessage(from, type, value);
+        this.socket.send(JSON.stringify(event));
+    }
+
+    addHandler(handler) {
+        this.handlers.push(handler);
+    }
+
+    removeHandler(handler) {
+        this.handlers.filter((h) => h !== handler);
+    }
+
+    receiveEvent(event) {
+        this.events.push(event);
+
+        this.events.forEach((e) => {
+            this.handlers.forEach((handler) => {
+                handler(e);
+            });
+        });
+    }
 }
+
+const RankingNotifier = new RankingEventNotifier();
+export { RankingEvent, RankingNotifier };
