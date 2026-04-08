@@ -5,3 +5,8 @@ class EventMessage {
     this.value = value;
   }
 }
+
+class RankingEventNotifier {
+    events = [];
+    handlers = [];
+}
