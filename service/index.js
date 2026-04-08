@@ -183,10 +183,6 @@ apiRouter.delete('/ratings', verifyAuth, async (req, res) => {
     res.status(status).send(res_obj);
 });
 
-app.listen(port, () => {
-  console.log(`Web service listening on port ${port}`);
-});
-
 const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

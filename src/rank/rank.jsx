@@ -24,18 +24,6 @@ export function Rank({ userName }) {
     function handleRankingEvent(event) {
         setNotifications((curr) => [event, ...curr].slice(0, 5));
     }
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-        const nextMsg = Math.floor(Math.random() * activityTemplates.length);
-        
-        setNotifications((prev) => {
-            const updatedNotifications = [activityTemplates[nextMsg], ...prev]
-            return updatedNotifications.slice(0,3);
-            })
-        }, 5000)
-        return () => clearInterval(interval)
-    }, [])
     
     useEffect(() => {
             fetch('/api/ratings')
@@ -124,7 +112,7 @@ export function Rank({ userName }) {
         <input id="musical-name" type="text" placeholder="Hamilton" value={musicalName} onChange={(e) => setMusicalName(e.target.value)}></input>
       </div>
       <div className="input-group mb-3">
-        <label className="input-group-text" for="count">How many stars is this musical?</label>
+        <label className="input-group-text" htmlFor="count">How many stars is this musical?</label>
         {[1,2,3,4,5].map((star) => (
             <span key={star}
                     onClick={() => setCurrentRating(star)}
